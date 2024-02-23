@@ -3,9 +3,7 @@ version: "3"
 services:
   crm_frontend_vite_client:
     container_name: crm_frontend_vite_client
-    build:
-      context: .
-      dockerfile: ./dev.Dockerfile
+    image: node:18
     restart: no
     working_dir: /app
     ports:
@@ -15,3 +13,4 @@ services:
     volumes:
       - ./:/app
       - /app/node_modules
+    command: ["sh", "-c", "npm i; npm run dev;"]
