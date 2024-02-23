@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Main Colors */
+  --light: #ffffff;
+  --dark: #000000;
+  --primary: rgb(246, 27, 17);
+  --primary2: rgba(246, 27, 17, 0.8);
+  --passive: #7e868c;
+
+  /* Font Size */
+  --base_text: 16px;
+  --middle_text: 14px;
+  --btn_text: 16px;
+  --logo_text: 30px;
+
+  /* Padding */
+  --xl_p: 24px;
+  --lg_p: 8px;
+  --md_p: 6px;
+  --sm_p: 4px;
+
+  /* Gap */
+  --lg_gap: 20px;
+  --md_gap: 14px;
+  --sm_gap: 8px;
+  --xs_gap: 4px;
+
+  /* Border Radius */
+  --global_radius: 4px;
+}
