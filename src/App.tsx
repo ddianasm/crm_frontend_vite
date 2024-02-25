@@ -1,8 +1,12 @@
-import { Router } from "@/router/router"
-
+import { SignUpPage } from "./pages/SignUpPage"
 
 export const App = () => {
     return (
-        <Router />
+        <SignUpPage />
     )
 }
+// export const App = () => {
+//     return (
+//         <Router />
+//     )
+// }
