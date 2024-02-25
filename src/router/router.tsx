@@ -3,12 +3,12 @@ import { SignUpPage } from "@/pages/SignUpPage";
 import { SignInPage } from "@/pages/SignInPage";
 import { FuncPage } from "@/pages/FuncPage";
 import { useContext } from "react";
-import { isAuthContext } from '@/App'
+import { IsAuthContext } from '@/App'
 
 
 
 export const Router = () => {
-    const isAuth = useContext(isAuthContext);
+    const isAuth = useContext(IsAuthContext);
 
     return (
         <BrowserRouter>
