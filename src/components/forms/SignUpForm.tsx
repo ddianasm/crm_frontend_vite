@@ -7,7 +7,7 @@ import axios from 'axios';
 export const SignUpForm = () => {
     const [signUpData, setSignUpData] = useState<{ username: string; password: string; }>({ username: '', password: '' })
 
-    function getDataFromServer() {
+    function sendtDataToServer() {
         console.log(signUpData);
         axios.post('http://localhost:3000/user/create', signUpData, {
             headers: {
@@ -47,7 +47,7 @@ export const SignUpForm = () => {
                         required />
                     {/* <span className='absolute left-0 p-[10px] pointer-events-none text-middle_text text-passive'>Password</span> */}
                 </div>
-                <Button className='w-full text-light hover:bg-primary2 bg-primary' onClick={() => getDataFromServer()}>Створити акаунт</Button>
+                <Button className='w-full text-light hover:bg-primary2 bg-primary' onClick={() => sendtDataToServer()}>Створити акаунт</Button>
             </div>
             {/* <div className='flex flex-col items-center justify-center text-middle_text text-passive gap-sm_gap'>
             <Link href='#'>Увійти з Google</Link>
