@@ -11,8 +11,8 @@ import classNames from 'classnames';
 
 export const LeftPanel = () => {
 
-    const openedPage = useContext(OpenedPageContext)
-    console.log(openedPage);
+    const openedPageContext = useContext(OpenedPageContext)
+    console.log(openedPageContext);
 
 
     return (
@@ -20,17 +20,17 @@ export const LeftPanel = () => {
             <div className='flex flex-col justify-center gap-xs_gap'>
                 <Logo />
                 <div className='flex flex-col gap-xs_gap'>
-                    <Link to="/" className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': openedPage === 'signUp' })}>
-                        <AiFillHome className={classNames('h-[20px] w-[20px]', { 'text-light': openedPage === 'signUp' })} />
-                        <div className={classNames('text-base_text text-dark', { 'text-light': openedPage === 'signUp' })}>Головна</div>
+                    {/* <Link to="/" className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': openedPageContext.openedPage === 'func' })} onClick={() => openedPageContext.setOpenedPage('func')}>
+                        <AiFillHome className={classNames('h-[20px] w-[20px]', { 'text-light': openedPageContext.openedPage === 'func' })} />
+                        <div className={classNames('text-base_text text-dark', { 'text-light': openedPageContext.openedPage === 'func' })}>Головна</div>
+                    </Link> */}
+                    <Link to="/auth/sign_in" className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': openedPageContext.openedPage === 'signIn' })} onClick={() => openedPageContext.setOpenedPage('signIn')}>
+                        <RxEnter className={classNames('h-[20px] w-[20px]', { 'text-light': openedPageContext.openedPage === 'signIn' })} />
+                        <div className={classNames('text-base_text text-dark', { 'text-light': openedPageContext.openedPage === 'signIn' })}>Авторизація</div>
                     </Link>
-                    <Link to="/auth/sign_in" className='flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer'>
-                        <RxEnter className={classNames('h-[20px] w-[20px]', { 'text-light': openedPage === 'signUp' })} />
-                        <div className={classNames('text-base_text text-dark', { 'text-light': openedPage === 'signUp' })}>Авторизація</div>
-                    </Link>
-                    <Link to="/auth/sign_up" className='flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer'>
-                        <HiUserAdd className={classNames('h-[20px] w-[20px]', { 'text-light': openedPage === 'signUp' })} />
-                        <div className={classNames('text-base_text text-dark', { 'text-light': openedPage === 'signUp' })}>Реєстрація</div>
+                    <Link to="/auth/sign_up" className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': openedPageContext.openedPage === 'signUp' })} onClick={() => openedPageContext.setOpenedPage('signUp')}>
+                        <HiUserAdd className={classNames('h-[20px] w-[20px]', { 'text-light': openedPageContext.openedPage === 'signUp' })} />
+                        <div className={classNames('text-base_text text-dark', { 'text-light': openedPageContext.openedPage === 'signUp' })}>Реєстрація</div>
                     </Link>
                 </div>
             </div>

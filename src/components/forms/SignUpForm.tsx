@@ -12,7 +12,8 @@ export const SignUpForm = () => {
         axios.post('http://localhost:3000/user/create', signUpData, {
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            withCredentials: true
         })
             .then(response => {
                 console.log(response.data); // Дані з сервера

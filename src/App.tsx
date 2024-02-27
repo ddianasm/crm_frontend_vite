@@ -2,12 +2,13 @@ import { Router } from "@/router/router"
 import React, { createContext, useContext, useState } from 'react';
 
 export const IsAuthContext = createContext(false)
-type authStateType = {
+
+type pageStateType = {
     openedPage: 'signUp' | 'signIn' | 'func'
-    setOpenedPage: React.Dispatch<React.SetStateAction<authStateType["openedPage"]>>
+    setOpenedPage: React.Dispatch<React.SetStateAction<pageStateType["openedPage"]>>
 }
-export const OpenedPageContext = createContext<authStateType>({
-    openedPage: 'signUp',
+export const OpenedPageContext = createContext<pageStateType>({
+    openedPage: 'signIn',
     setOpenedPage: () => { }
 })
 
@@ -24,7 +25,7 @@ const isCookie = () => {
 
 
 export const App = () => {
-    const [openedPage, setOpenedPage] = useState<authStateType["openedPage"]>('signUp')
+    const [openedPage, setOpenedPage] = useState<pageStateType["openedPage"]>('signIn')
 
     return (
         <IsAuthContext.Provider value={isCookie()}>
