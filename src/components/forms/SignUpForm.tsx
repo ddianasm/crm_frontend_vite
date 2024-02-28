@@ -22,6 +22,21 @@ export const SignUpForm = () => {
                 console.error('Помилка при відправці даних:', error);
             });
     }
+    function testsendtDataToServer() {
+        console.log(signUpData);
+        axios.get('http://localhost:3000/test', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true
+        })
+            .then(response => {
+                console.log(response.data); // Дані з сервера
+            })
+            .catch(error => {
+                console.error('Помилка при відправці даних:', error);
+            });
+    }
 
     return (
         <div className='flex flex-col items-center justify-center w-[40%] gap-lg_gap'>
@@ -49,6 +64,7 @@ export const SignUpForm = () => {
                     {/* <span className='absolute left-0 p-[10px] pointer-events-none text-middle_text text-passive'>Password</span> */}
                 </div>
                 <Button className='w-full text-light hover:bg-primary2 bg-primary' onClick={() => sendtDataToServer()}>Створити акаунт</Button>
+                <Button className='w-full text-light hover:bg-primary2 bg-primary' onClick={() => testsendtDataToServer()}>Створити акаунт</Button>
             </div>
             {/* <div className='flex flex-col items-center justify-center text-middle_text text-passive gap-sm_gap'>
             <Link href='#'>Увійти з Google</Link>

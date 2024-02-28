@@ -1,19 +1,25 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { Logo } from '@/components/logo/Logo';
+import { IsAuthContext } from '@/App';
 import { AiFillHome } from 'react-icons/ai';
 import { RxEnter } from 'react-icons/rx';
 import { HiUserAdd } from 'react-icons/hi';
 import { IoIosInformationCircle } from 'react-icons/io';
 import { RiMessage2Fill } from 'react-icons/ri';
-import { OpenedPageContext } from '@/App';
-import { useContext } from 'react';
-import classNames from 'classnames';
+import { routes } from '@/routes';
 
 export const LeftPanel = () => {
+    // тестовий функціонал / видалити
+    const IsAuthContextcheck = useContext(IsAuthContext)
+    console.log(IsAuthContextcheck);
 
-    const openedPageContext = useContext(OpenedPageContext)
-    console.log(openedPageContext);
-
+    //url
+    const currentUrl = () => {
+        const currentUrl = window.location.pathname;
+        return currentUrl
+    }
 
     return (
         <div className='col-span-1 row-span-2 flex flex-col justify-between p-lg_p bg-light shadow-lg'>
@@ -24,19 +30,19 @@ export const LeftPanel = () => {
                         <AiFillHome className={classNames('h-[20px] w-[20px]', { 'text-light': openedPageContext.openedPage === 'func' })} />
                         <div className={classNames('text-base_text text-dark', { 'text-light': openedPageContext.openedPage === 'func' })}>Головна</div>
                     </Link> */}
-                    <Link to="/auth/sign_in" className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': openedPageContext.openedPage === 'signIn' })} onClick={() => openedPageContext.setOpenedPage('signIn')}>
-                        <RxEnter className={classNames('h-[20px] w-[20px]', { 'text-light': openedPageContext.openedPage === 'signIn' })} />
-                        <div className={classNames('text-base_text text-dark', { 'text-light': openedPageContext.openedPage === 'signIn' })}>Авторизація</div>
+                    <Link to={routes.authSignIn.route} className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': routes.authSignIn.route === window.location.pathname })}>
+                        <RxEnter className={classNames('h-[20px] w-[20px]', { 'text-light': routes.authSignIn.route === window.location.pathname })} />
+                        <div className={classNames('text-base_text text-dark', { 'text-light': routes.authSignIn.route === window.location.pathname })}>Авторизація</div>
                     </Link>
-                    <Link to="/auth/sign_up" className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': openedPageContext.openedPage === 'signUp' })} onClick={() => openedPageContext.setOpenedPage('signUp')}>
-                        <HiUserAdd className={classNames('h-[20px] w-[20px]', { 'text-light': openedPageContext.openedPage === 'signUp' })} />
-                        <div className={classNames('text-base_text text-dark', { 'text-light': openedPageContext.openedPage === 'signUp' })}>Реєстрація</div>
+                    <Link to={routes.authSignUp.route} className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': routes.authSignUp.route === window.location.pathname })}>
+                        <HiUserAdd className={classNames('h-[20px] w-[20px]', { 'text-light': routes.authSignUp.route === window.location.pathname })} />
+                        <div className={classNames('text-base_text text-dark', { 'text-light': routes.authSignUp.route === window.location.pathname })}>Реєстрація</div>
                     </Link>
                 </div>
             </div>
             <div className='flex flex-col justify-center gap-xs_gap'>
                 <div className='flex flex-col gap-xs_gap'>
-                    <div className='flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer'>
+                    <div className='flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer' onClick={() => console.log(currentUrl())}>
                         <IoIosInformationCircle className='h-[20px] w-[20px]' />
                         <div>Інтеграції</div>
                     </div>
