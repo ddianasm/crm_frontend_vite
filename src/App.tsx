@@ -1,6 +1,7 @@
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, { createContext, useReducer, useEffect, useState } from 'react';
 import { Router } from "@/router/router"
 import { ServerRequests } from '@/API/server.requests';
+import { authReducer } from '@/authReducer';
 
 type AuthContextType = {
     isAuth: boolean;
@@ -10,19 +11,8 @@ type AuthContextType = {
 export const IsAuthContext = createContext<AuthContextType>({ isAuth: false, dispatch: () => { } })
 
 
-//reducer
-const authReducer = (state: boolean, action: { type: 'isAuth' | 'noAuth' }) => {
-    switch (action.type) {
-        case 'isAuth':
-            return true;
-        case 'noAuth':
-            return false;
-        default:
-            return state;
-    }
-}
-
 export const App = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isAuth, dispatch] = useReducer(authReducer, false);
 
     useEffect(() => {
@@ -37,11 +27,17 @@ export const App = () => {
             .catch(error => {
                 console.error('Error checking authorization:', error);
             })
+            .finally(() => {
+                setIsLoading(false);
+            });
     }, [])
 
-    return (
-        <IsAuthContext.Provider value={{ isAuth, dispatch }}>
-            <Router />
-        </IsAuthContext.Provider>
-    )
+    if (!isLoading) {
+        return (
+            <IsAuthContext.Provider value={{ isAuth, dispatch }}>
+                <Router />
+            </IsAuthContext.Provider>
+        )
+    }
+
 }

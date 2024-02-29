@@ -8,7 +8,7 @@ import { RxEnter } from 'react-icons/rx';
 import { HiUserAdd } from 'react-icons/hi';
 import { IoIosInformationCircle } from 'react-icons/io';
 import { RiMessage2Fill } from 'react-icons/ri';
-import { routes } from '@/routes';
+import { routes } from '@/router/routes';
 
 export const LeftPanel = () => {
     // тестовий функціонал / видалити
