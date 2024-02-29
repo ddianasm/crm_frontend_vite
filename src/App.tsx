@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useEffect, useState } from 'react';
 import { Router } from "@/router/router"
-import { ServerRequests } from '@/API/server.requests';
+import { serverRequests } from '@/API/server.requests';
 import { authReducer } from '@/authReducer';
 
 type AuthContextType = {
@@ -16,7 +16,7 @@ export const App = () => {
     const [isAuth, dispatch] = useReducer(authReducer, false);
 
     useEffect(() => {
-        ServerRequests.checkAuthAsync()
+        serverRequests.checkAuthAsync()
             .then(response => {
                 if (response.status === 200) {
                     dispatch({ type: 'isAuth' });

@@ -12,8 +12,8 @@ import { routes } from '@/router/routes';
 
 export const LeftPanel = () => {
     // тестовий функціонал / видалити
-    const IsAuthContextcheck = useContext(IsAuthContext)
-    console.log(IsAuthContextcheck.isAuth);
+    // const IsAuthContextcheck = useContext(IsAuthContext)
+    // console.log(IsAuthContextcheck.isAuth);
 
     return (
         <div className='col-span-1 row-span-2 flex flex-col justify-between p-lg_p bg-light shadow-lg'>

@@ -1,11 +1,29 @@
 'use client'
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { useNavigate } from "react-router-dom";
 import { Logo } from '@/components/logo/Logo';
 import { Button } from '@/components/buttons/auth_button/Button';
-import { ServerRequests } from "@/API/server.requests";
+import { serverRequests } from "@/API/server.requests";
+import { IsAuthContext } from "@/App";
 
 export const SignUpForm = () => {
     const [signUpData, setSignUpData] = useState<{ username: string; password: string; }>({ username: '', password: '' })
+    const IsAuthContextCheck = useContext(IsAuthContext)
+
+    const navigate = useNavigate();
+
+    const handleAuthRequest = () => {
+        serverRequests.sendSignUpDataAsync(signUpData)
+            .then(response => {
+                if (response.status === 200) {
+                    IsAuthContextCheck.dispatch({ type: 'isAuth' });
+                    navigate('/');
+                }
+            })
+            .catch(error => {
+                console.error('Error checking authorization:', error);
+            })
+    }
 
     return (
         <div className='flex flex-col items-center justify-center w-[40%] gap-lg_gap'>
@@ -32,7 +50,7 @@ export const SignUpForm = () => {
                         required />
                     {/* <span className='absolute left-0 p-[10px] pointer-events-none text-middle_text text-passive'>Password</span> */}
                 </div>
-                <Button className='w-full text-light hover:bg-primary2 bg-primary' onClick={() => ServerRequests.sendSignUpDataAsync(signUpData)}>Створити акаунт</Button>
+                <Button className='w-full text-light hover:bg-primary2 bg-primary' onClick={handleAuthRequest}>Створити акаунт</Button>
             </div>
             {/* <div className='flex flex-col items-center justify-center text-middle_text text-passive gap-sm_gap'>
             <Link href='#'>Увійти з Google</Link>

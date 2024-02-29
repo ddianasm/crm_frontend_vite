@@ -4,7 +4,7 @@ type AuthDataType = {
   username: string;
   password: string;
 };
-export const ServerRequests = {
+export const serverRequests = {
   sendSignUpDataAsync: async (data: AuthDataType) =>
     mainInstance.post("/sign_up", data),
   sendSignInDataAsync: async (data: AuthDataType) =>
