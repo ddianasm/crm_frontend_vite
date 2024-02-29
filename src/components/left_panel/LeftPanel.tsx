@@ -12,26 +12,32 @@ import { routes } from '@/router/routes';
 
 export const LeftPanel = () => {
     // тестовий функціонал / видалити
-    // const IsAuthContextcheck = useContext(IsAuthContext)
-    // console.log(IsAuthContextcheck.isAuth);
+    const IsAuthContextCheck = useContext(IsAuthContext)
+    console.log(IsAuthContextCheck.isAuth);
 
     return (
         <div className='col-span-1 row-span-2 flex flex-col justify-between p-lg_p bg-light shadow-lg'>
             <div className='flex flex-col justify-center gap-xs_gap'>
                 <Logo />
                 <div className='flex flex-col gap-xs_gap'>
-                    {/* <Link to="/" className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': openedPageContext.openedPage === 'func' })} onClick={() => openedPageContext.setOpenedPage('func')}>
-                        <AiFillHome className={classNames('h-[20px] w-[20px]', { 'text-light': openedPageContext.openedPage === 'func' })} />
-                        <div className={classNames('text-base_text text-dark', { 'text-light': openedPageContext.openedPage === 'func' })}>Головна</div>
-                    </Link> */}
-                    <Link to={routes.authSignIn.route} className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': routes.authSignIn.route === window.location.pathname })}>
-                        <RxEnter className={classNames('h-[20px] w-[20px]', { 'text-light': routes.authSignIn.route === window.location.pathname })} />
-                        <div className={classNames('text-base_text text-dark', { 'text-light': routes.authSignIn.route === window.location.pathname })}>Авторизація</div>
-                    </Link>
-                    <Link to={routes.authSignUp.route} className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': routes.authSignUp.route === window.location.pathname })}>
-                        <HiUserAdd className={classNames('h-[20px] w-[20px]', { 'text-light': routes.authSignUp.route === window.location.pathname })} />
-                        <div className={classNames('text-base_text text-dark', { 'text-light': routes.authSignUp.route === window.location.pathname })}>Реєстрація</div>
-                    </Link>
+                    {IsAuthContextCheck.isAuth ? (
+                        <div className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': true })} >
+                            <AiFillHome className={classNames('h-[20px] w-[20px]', { 'text-light': true })} />
+                            <div className={classNames('text-base_text text-dark', { 'text-light': true })}>Головна</div>
+                        </div>
+                    ) : (
+                        <>
+                            <Link to={routes.authSignIn.route} className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': routes.authSignIn.route === window.location.pathname })}>
+                                <RxEnter className={classNames('h-[20px] w-[20px]', { 'text-light': routes.authSignIn.route === window.location.pathname })} />
+                                <div className={classNames('text-base_text text-dark', { 'text-light': routes.authSignIn.route === window.location.pathname })}>Авторизація</div>
+                            </Link>
+                            <Link to={routes.authSignUp.route} className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': routes.authSignUp.route === window.location.pathname })}>
+                                <HiUserAdd className={classNames('h-[20px] w-[20px]', { 'text-light': routes.authSignUp.route === window.location.pathname })} />
+                                <div className={classNames('text-base_text text-dark', { 'text-light': routes.authSignUp.route === window.location.pathname })}>Реєстрація</div>
+                            </Link>
+                        </>
+                    )
+                    }
                 </div>
             </div>
             <div className='flex flex-col justify-center gap-xs_gap'>
