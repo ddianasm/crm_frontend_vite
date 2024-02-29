@@ -13,13 +13,7 @@ import { routes } from '@/routes';
 export const LeftPanel = () => {
     // тестовий функціонал / видалити
     const IsAuthContextcheck = useContext(IsAuthContext)
-    console.log(IsAuthContextcheck);
-
-    //url
-    const currentUrl = () => {
-        const currentUrl = window.location.pathname;
-        return currentUrl
-    }
+    console.log(IsAuthContextcheck.isAuth);
 
     return (
         <div className='col-span-1 row-span-2 flex flex-col justify-between p-lg_p bg-light shadow-lg'>
@@ -42,7 +36,7 @@ export const LeftPanel = () => {
             </div>
             <div className='flex flex-col justify-center gap-xs_gap'>
                 <div className='flex flex-col gap-xs_gap'>
-                    <div className='flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer' onClick={() => console.log(currentUrl())}>
+                    <div className='flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer' onClick={() => console.log('hi')}>
                         <IoIosInformationCircle className='h-[20px] w-[20px]' />
                         <div>Інтеграції</div>
                     </div>
