@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { serverRequests } from "@/API/server.requests"
 
 
@@ -17,8 +17,21 @@ export const MainComponent = () => {
             .catch(error => {
                 console.error('Error adding product:', error);
             })
-
     }
+
+    useEffect(() => {
+        serverRequests.getUserProducts()
+            .then(response => {
+                if (response.data) {
+                    console.log(response.data);
+                } else {
+                    console.log('Products not received');
+                }
+            })
+            .catch(error => {
+                console.error('Error getting product:', error);
+            })
+    }, [])
 
     return (
         <div className="flex flex-col gap-[40px] justify-center items-center">
