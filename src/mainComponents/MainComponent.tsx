@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react"
 import { serverRequests } from "@/API/server.requests"
 
+type Products = {
+    id: number,
+    name: string
+}
+
 
 export const MainComponent = () => {
     const [productId, setProductId] = useState<number>(1)
+    const [products, setProducts] = useState<Products[]>([]);
 
     const addProduct = () => {
         serverRequests.addProduct({ productId })
@@ -24,6 +30,7 @@ export const MainComponent = () => {
             .then(response => {
                 if (response.data) {
                     console.log(response.data);
+                    setProducts(response.data)
                 } else {
                     console.log('Products not received');
                 }
@@ -39,7 +46,18 @@ export const MainComponent = () => {
                 <input className="border border-primary rounded-global_radius h-[40px] w-[300px]" type="number" onChange={e => setProductId(parseInt(e.target.value))} />
                 <button className="h-[40px] w-[100px] bg-primary text-light rounded-global_radius" onClick={() => addProduct()}>Add Product</button>
             </div>
-            <div>Товари користувача</div>
+            <div>
+                <div>Товари:</div>
+                <div>
+                    {products.map(product => (
+                        <div key={product.id}>
+                            <div>ID: {product.id}</div>
+                            <div>Name: {product.name}</div>
+                        </div>
+                    ))}
+
+                </div>
+            </div>
         </div>
     )
 }
