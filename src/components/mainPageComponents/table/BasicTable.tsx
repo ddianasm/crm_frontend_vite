@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react'
 import { useTable } from 'react-table'
-import productsData from '@/contentComponents/productsData.json'
-import { COLUMNS } from '@/contentComponents/columns'
-import { serverRequests } from '@/API/server.requests'
+import { COLUMNS } from '@/components/mainPageComponents/table/columns'
 
 
 type Products = {
-    id: number,
     name: string
 }
 type BasicTableProps = {
