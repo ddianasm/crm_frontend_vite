@@ -4,14 +4,16 @@ import productsData from '@/contentComponents/productsData.json'
 import { COLUMNS } from '@/contentComponents/columns'
 import { serverRequests } from '@/API/server.requests'
 
+
 type Products = {
     id: number,
     name: string
 }
-
-
-export const BasicTable = () => {
-    const [products, setProducts] = useState<Products[]>([]);
+type BasicTableProps = {
+    products: Products[];
+    setProducts: React.Dispatch<React.SetStateAction<Products[]>>;
+}
+export const BasicTable: React.FC<BasicTableProps> = ({ products, setProducts }) => {
 
     const data = products
     const columns = COLUMNS
@@ -26,24 +28,6 @@ export const BasicTable = () => {
         rows,
         prepareRow
     } = tableInstance
-
-
-
-
-    useEffect(() => {
-        serverRequests.getUserProducts()
-            .then(response => {
-                if (response.data) {
-                    console.log(response.data);
-                    setProducts(response.data)
-                } else {
-                    console.log('Products not received');
-                }
-            })
-            .catch(error => {
-                console.error('Error getting product:', error);
-            })
-    }, [])
     return (
         <table {...getTableProps} className="table-auto w-full border-collapse">
             <thead className="bg-primary text-light text-base_text">
