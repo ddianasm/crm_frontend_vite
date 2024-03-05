@@ -66,7 +66,7 @@ export const MainComponent = () => {
                 <button className="h-[40px] w-[120px] bg-primary text-light rounded-global_radius" onClick={() => addProduct()}>Add Product</button>
                 <button className="h-[40px] w-[120px] bg-primary text-light rounded-global_radius" onClick={() => deleteProduct()}>Delete Product</button>
             </div>
-            <BasicTable products={products} setProducts={setProducts} />
+            <BasicTable products={products} />
         </div>
     )
 }

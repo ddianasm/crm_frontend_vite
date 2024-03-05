@@ -11,9 +11,8 @@ type Products = {
 }
 type BasicTableProps = {
     products: Products[];
-    setProducts: React.Dispatch<React.SetStateAction<Products[]>>;
 }
-export const BasicTable: React.FC<BasicTableProps> = ({ products, setProducts }) => {
+export const BasicTable: React.FC<BasicTableProps> = ({ products }) => {
 
     const data = products
     const columns = COLUMNS
