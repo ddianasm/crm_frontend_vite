@@ -2,7 +2,7 @@ import { Content } from "@/components/content/Content"
 import { LeftPanel } from "@/components/left_panel/LeftPanel"
 import { TopPanel } from "@/components/top_panel/TopPanel"
 import { SignInForm } from "@/components/forms/SignInForm"
-import { MainComponent } from "@/mainComponents/MainComponent"
+import { MainComponent } from "@/contentComponents/MainComponent"
 
 
 export const MainPage = () => {
