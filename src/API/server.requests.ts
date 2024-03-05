@@ -10,7 +10,7 @@ export const serverRequests = {
   sendSignInDataAsync: async (data: AuthDataType) =>
     mainInstance.post("/sign_in", data),
   checkAuthAsync: async () => await mainInstance.get("/auth"),
-  addProduct: async (data: { productId: number }) =>
+  addProduct: async (data: { name: string }) =>
     mainInstance.post('/add_product', data),
-  getUserProducts: async () => await mainInstance.get('/get_user_products')
+  getUserProducts: async () => await mainInstance.get('/get_products')
 };
