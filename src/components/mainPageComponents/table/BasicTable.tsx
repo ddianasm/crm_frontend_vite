@@ -3,12 +3,20 @@ import { COLUMNS } from '@/components/mainPageComponents/table/columns'
 
 
 type Products = {
-    name: string
+    name: string,
+    amount: number,
+    price: number,
+    customer: string,
+    email: string,
+    phone: string,
+    status: string
 }
 type BasicTableProps = {
     products: Products[];
 }
 export const BasicTable: React.FC<BasicTableProps> = ({ products }) => {
+    console.log(products);
+
 
     const data = products
     const columns = COLUMNS
@@ -31,7 +39,7 @@ export const BasicTable: React.FC<BasicTableProps> = ({ products }) => {
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {
                                 headerGroup.headers.map(column => (
-                                    <th {...column.getHeaderProps()} className="px-sm_p py-sm_p text-left">{column.render('Header')}</th>
+                                    <th {...column.getHeaderProps()} className="px-sm_p py-sm_p text-center">{column.render('Header')}</th>
                                 ))
                             }
                         </tr>
@@ -47,7 +55,7 @@ export const BasicTable: React.FC<BasicTableProps> = ({ products }) => {
                                 {
                                     row.cells.map(cell => {
                                         return (
-                                            <td {...cell.getCellProps()} className="px-sm_p py-sm_p text-left">{cell.render('Cell')}</td>
+                                            <td {...cell.getCellProps()} className="px-sm_p py-sm_p text-center">{cell.render('Cell')}</td>
                                         )
                                     })
                                 }
