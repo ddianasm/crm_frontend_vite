@@ -1,8 +1,8 @@
 export const COLUMNS = [
-    // {
-    //     Header: "ID",
-    //     accessor: "id"
-    // },
+    {
+        Header: "ID",
+        accessor: "id"
+    },
     {
         Header: "Name",
         accessor: "name"
@@ -27,6 +27,11 @@ export const COLUMNS = [
         Header: "Phone",
         accessor: "phone"
     },
+    {
+        Header: "Date",
+        accessor: "date"
+    },
+
     {
         Header: "Status",
         accessor: "status"

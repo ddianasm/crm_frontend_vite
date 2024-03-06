@@ -3,12 +3,14 @@ import { COLUMNS } from '@/components/mainPageComponents/table/columns'
 
 
 type Products = {
+    id: number,
     name: string,
     amount: number,
     price: number,
     customer: string,
     email: string,
     phone: string,
+    date: string,
     status: string
 }
 type BasicTableProps = {
