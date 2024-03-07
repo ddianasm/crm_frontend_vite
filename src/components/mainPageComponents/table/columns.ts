@@ -1,5 +1,9 @@
 export const COLUMNS = [
     {
+        Header: "SELECT",
+        accessor: "select"
+    },
+    {
         Header: "ID",
         accessor: "id"
     },

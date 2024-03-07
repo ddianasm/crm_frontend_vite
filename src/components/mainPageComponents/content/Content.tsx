@@ -15,11 +15,11 @@ type Products = {
 }
 
 const productForSend = {
-    name: 'flower',
+    name: 'pen',
     amount: 1,
-    price: 200,
-    customer: 'Lili',
-    email: 'lili@gmail.com',
+    price: 100,
+    customer: 'JuliaG',
+    email: 'ggg@gmail.com',
     phone: '+380777777777',
     status: 'new'
 }
@@ -27,6 +27,8 @@ const productForSend = {
 export const Content = () => {
     const [productName, setProductName] = useState<string>('')
     const [products, setProducts] = useState<Products[]>([]);
+    const [selectedOrders, setSelectedOrders] = useState<{ [id: string]: boolean }>({});
+
 
     const addProduct = () => {
         serverRequests.addProduct(productForSend)
@@ -83,8 +85,13 @@ export const Content = () => {
                     <button className="h-[40px] w-[120px] bg-primary text-light rounded-global_radius" onClick={() => addProduct()}>Add Product</button>
                     <button className="h-[40px] w-[120px] bg-primary text-light rounded-global_radius" onClick={() => deleteProduct()}>Delete Product</button>
                 </div>
-                <BasicTable products={products} />
+                {Object.values(selectedOrders).some(value => value) &&
+                    <div className="bg-primary w-full text-light text-center">
+                        Content
+                    </div>
+                }
+                <BasicTable products={products} selectedOrders={selectedOrders} setSelectedOrders={setSelectedOrders} />
             </div>
         </div>
-    );
-};
+    )
+}

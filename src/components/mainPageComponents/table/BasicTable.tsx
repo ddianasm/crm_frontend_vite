@@ -3,6 +3,7 @@ import { COLUMNS } from '@/components/mainPageComponents/table/columns'
 
 
 type Products = {
+    select: string,
     id: number,
     name: string,
     amount: number,
@@ -15,12 +16,23 @@ type Products = {
 }
 type BasicTableProps = {
     products: Products[];
+    selectedOrders: boolean;
+    setSelectedOrders: React.Dispatch<React.SetStateAction<{ [id: string]: boolean }>>;
 }
-export const BasicTable: React.FC<BasicTableProps> = ({ products }) => {
-    console.log(products);
+export const BasicTable: React.FC<BasicTableProps> = ({ products, selectedOrders, setSelectedOrders }) => {
+    console.log(selectedOrders);
 
+    const handleCheckboxChange = (id: number) => {
+        setSelectedOrders(prevState => ({
+            ...prevState,
+            [id]: !prevState[id]
+        }));
+    };
 
-    const data = products
+    const data = products.map(item => ({
+        ...item,
+        select: <input type="checkbox" className='h-[20px] w-[20px] cursor-pointer' onChange={() => handleCheckboxChange(item.id)} />
+    }))
     const columns = COLUMNS
     const tableInstance = useTable({
         columns,
