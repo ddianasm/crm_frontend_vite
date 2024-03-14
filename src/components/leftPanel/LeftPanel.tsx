@@ -21,19 +21,19 @@ export const LeftPanel = () => {
                 <Logo />
                 <div className='flex flex-col gap-xs_gap'>
                     {IsAuthContextCheck.isAuth ? (
-                        <div className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': true })} >
+                        <div className={classNames('flex items-center text-md_text p-sm_p gap-sm_gap rounded-sm_radius cursor-pointer', { 'bg-primary': true })} >
                             <AiFillHome className={classNames('h-[20px] w-[20px]', { 'text-light': true })} />
-                            <div className={classNames('text-base_text text-dark', { 'text-light': true })}>Головна</div>
+                            <div className={classNames('text-md_text text-dark', { 'text-light': true })}>Головна</div>
                         </div>
                     ) : (
                         <>
-                            <Link to={routes.authSignIn.route} className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': routes.authSignIn.route === window.location.pathname })}>
+                            <Link to={routes.authSignIn.route} className={classNames('flex items-center text-md_text p-sm_p gap-sm_gap rounded-sm_radius cursor-pointer', { 'bg-primary': routes.authSignIn.route === window.location.pathname })}>
                                 <RxEnter className={classNames('h-[20px] w-[20px]', { 'text-light': routes.authSignIn.route === window.location.pathname })} />
-                                <div className={classNames('text-base_text text-dark', { 'text-light': routes.authSignIn.route === window.location.pathname })}>Авторизація</div>
+                                <div className={classNames('text-md_text text-dark', { 'text-light': routes.authSignIn.route === window.location.pathname })}>Авторизація</div>
                             </Link>
-                            <Link to={routes.authSignUp.route} className={classNames('flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': routes.authSignUp.route === window.location.pathname })}>
+                            <Link to={routes.authSignUp.route} className={classNames('flex items-center text-md_text p-sm_p gap-sm_gap rounded-sm_radius cursor-pointer', { 'bg-primary': routes.authSignUp.route === window.location.pathname })}>
                                 <HiUserAdd className={classNames('h-[20px] w-[20px]', { 'text-light': routes.authSignUp.route === window.location.pathname })} />
-                                <div className={classNames('text-base_text text-dark', { 'text-light': routes.authSignUp.route === window.location.pathname })}>Реєстрація</div>
+                                <div className={classNames('text-md_text text-dark', { 'text-light': routes.authSignUp.route === window.location.pathname })}>Реєстрація</div>
                             </Link>
                         </>
                     )
@@ -42,16 +42,16 @@ export const LeftPanel = () => {
             </div>
             <div className='flex flex-col justify-center gap-xs_gap'>
                 <div className='flex flex-col gap-xs_gap'>
-                    <div className='flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer' onClick={() => console.log('hi')}>
+                    <div className='flex items-center text-md_text p-sm_p gap-sm_gap rounded-sm_radius cursor-pointer' onClick={() => console.log('hi')}>
                         <IoIosInformationCircle className='h-[20px] w-[20px]' />
                         <div>Інтеграції</div>
                     </div>
-                    <div className='flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer'>
+                    <div className='flex items-center text-md_text p-sm_p gap-sm_gap rounded-sm_radius cursor-pointer'>
                         <RiMessage2Fill className='h-[20px] w-[20px]' />
                         <div>Підтримка</div>
                     </div>
                 </div>
-                <div className='flex items-center text-middle_text gap-sm_gap'>Founder:<span className='text-primary cursor-pointer'>NS13</span>
+                <div className='flex items-center text-sm_text gap-sm_gap'>Founder:<span className='text-primary cursor-pointer'>NS13</span>
                 </div>
             </div>
         </div >

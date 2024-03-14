@@ -12,10 +12,10 @@ module.exports = {
         primary2: "var(--primary2)",
       },
       fontSize: {
-        btn_text: "var(--btn_text)",
-        base_text: "var(--base_text)",
-        middle_text: "var(--middle_text)",
-        logo_text: "var(--logo_text)",
+        sm_text: "var(--sm_text)",
+        md_text: "var(--md_text)",
+        lg_text: "var(--lg_text)",
+        xl_text: "var(--xl_text)",
       },
       padding: {
         xl_p: "var(--xl_p)",
@@ -24,13 +24,14 @@ module.exports = {
         sm_p: "var(--sm_p)",
       },
       gap: {
+        xl_gap: "var(--xl_gap)",
         lg_gap: "var(--lg_gap)",
         md_gap: "var(--md_gap)",
         sm_gap: "var(--sm_gap)",
         xs_gap: "var(--xs_gap)",
       },
       borderRadius: {
-        global_radius: "var(--global_radius)",
+        sm_radius: "var(--sm_radius)",
       },
     },
   },

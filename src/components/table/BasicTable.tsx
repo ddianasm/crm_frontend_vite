@@ -1,5 +1,6 @@
 import { useTable } from 'react-table'
-import { COLUMNS } from '@/components/mainPageComponents/table/columns'
+import { COLUMNS } from '@/components/table/columns'
+import classNames from 'classnames'
 
 
 type Products = {
@@ -17,7 +18,7 @@ type Products = {
 type BasicTableProps = {
     products: Products[];
     selectedOrders: boolean;
-    setSelectedOrders: React.Dispatch<React.SetStateAction<{ [id: string]: boolean }>>;
+    setSelectedOrders: React.Dispatch<React.SetStateAction<{ [id: number]: boolean }>>;
 }
 export const BasicTable: React.FC<BasicTableProps> = ({ products, selectedOrders, setSelectedOrders }) => {
     console.log(selectedOrders);
@@ -47,7 +48,7 @@ export const BasicTable: React.FC<BasicTableProps> = ({ products, selectedOrders
     } = tableInstance
     return (
         <table {...getTableProps} className="table-auto w-full border-collapse">
-            <thead className="bg-primary text-light text-base_text">
+            <thead className="bg-primary text-light text-md_text">
                 {
                     headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
@@ -69,7 +70,11 @@ export const BasicTable: React.FC<BasicTableProps> = ({ products, selectedOrders
                                 {
                                     row.cells.map(cell => {
                                         return (
-                                            <td {...cell.getCellProps()} className="px-sm_p py-sm_p text-center">{cell.render('Cell')}</td>
+                                            <td
+                                                {...cell.getCellProps()}
+                                                className='px-sm_p py-sm_p text-center'>
+                                                {cell.render('Cell')}
+                                            </td>
                                         )
                                     })
                                 }

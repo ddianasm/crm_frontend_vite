@@ -1,6 +1,6 @@
-import { Content } from "@/components/mainPageComponents/content/Content"
-import { LeftPanel } from "@/components/left_panel/LeftPanel"
-import { TopPanel } from "@/components/top_panel/TopPanel"
+import { Content } from "@/components/content/Content"
+import { LeftPanel } from "@/components/leftPanel/LeftPanel"
+import { TopPanel } from "@/components/topPanel/TopPanel"
 import { SignUpForm } from "@/components/forms/SignUpForm"
 
 

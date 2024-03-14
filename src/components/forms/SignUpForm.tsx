@@ -29,12 +29,12 @@ export const SignUpForm = () => {
         <div className='flex flex-col items-center justify-center w-[40%] gap-lg_gap'>
             <div className='flex flex-col items-center justify-center gap-lg_gap'>
                 <Logo />
-                <div className='text-base_text'>Реєстрація</div>
+                <div className='text-md_text'>Реєстрація</div>
             </div>
             <div className='flex flex-col items-center justify-center w-full gap-md_gap'>
                 <div className='relative h-[40px] w-full'>
                     <input
-                        className='h-full w-full text-dark text-middle_text bg-transparent border border-1 border-solid border-passive rounded-global_radius outline-none p-lg_p'
+                        className='h-full w-full text-dark text-middle_text bg-transparent border border-1 border-solid border-passive rounded-sm_radius outline-none p-lg_p'
                         type='text'
                         value={signUpData.username}
                         onChange={e => setSignUpData({ ...signUpData, username: e.target.value })}
@@ -43,7 +43,7 @@ export const SignUpForm = () => {
                 </div>
                 <div className='relative h-[40px] w-full'>
                     <input
-                        className='h-full w-full text-dark text-middle_text bg-transparent border border-1 border-solid border-passive rounded-global_radius outline-none p-lg_p'
+                        className='h-full w-full text-dark text-middle_text bg-transparent border border-1 border-solid border-passive rounded-sm_radius outline-none p-lg_p'
                         type='password'
                         value={signUpData.password}
                         onChange={e => setSignUpData({ ...signUpData, password: e.target.value })}

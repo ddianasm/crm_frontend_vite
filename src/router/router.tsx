@@ -14,9 +14,9 @@ export const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={IsAuthContextCheck.isAuth ? <MainPage /> : <Navigate to={routes.authSignIn.route} />} />
-                <Route path="/sign_up" element={<SignUpPage />} />
-                <Route path="/sign_in" element={<SignInPage />} />
+                <Route path={routes.main.route} element={IsAuthContextCheck.isAuth ? <MainPage /> : <Navigate to={routes.authSignIn.route} />} />
+                <Route path={routes.authSignUp.route} element={<SignUpPage />} />
+                <Route path={routes.authSignIn.route} element={<SignInPage />} />
             </Routes>
         </BrowserRouter>
     )

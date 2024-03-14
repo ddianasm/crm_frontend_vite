@@ -20,24 +20,21 @@ export const LeftPanelMainPage = () => {
             <div className='flex flex-col justify-center gap-xs_gap'>
                 {/* <Logo /> */}
                 <div className='flex flex-col gap-xs_gap'>
-                    <div className={classNames('flex items-center text-base_text p-lg_p gap-sm_gap rounded-global_radius cursor-pointer', { 'bg-primary': true })}>
+                    <div className={classNames('flex items-center text-md_text p-lg_p gap-sm_gap rounded-sm_radius cursor-pointer', { 'bg-primary': true })}>
                         <AiFillHome className={classNames('h-[20px] w-[20px]', { 'text-light': true })} />
                     </div>
                 </div>
             </div>
-            <div className='flex flex-col justify-center gap-xs_gap'>
+            {/* <div className='flex flex-col justify-center gap-xs_gap'>
                 <div className='flex flex-col gap-xs_gap'>
-                    <div className='flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer' onClick={() => console.log('hi')}>
+                    <div className='flex items-center text-md_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer' onClick={() => console.log('hi')}>
                         <IoIosInformationCircle className='h-[20px] w-[20px]' />
-                        {/* <div>Інтеграції</div> */}
                     </div>
-                    <div className='flex items-center text-base_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer'>
+                    <div className='flex items-center text-md_text p-sm_p gap-sm_gap rounded-global_radius cursor-pointer'>
                         <RiMessage2Fill className='h-[20px] w-[20px]' />
-                        {/* <div>Підтримка</div> */}
                     </div>
                 </div>
-                {/* <div className='flex items-center text-middle_text gap-sm_gap'>Founder:<span className='text-primary cursor-pointer'>NS13</span></div> */}
-            </div>
+            </div> */}
         </div >
     )
 }

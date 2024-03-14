@@ -2,6 +2,7 @@ import React, { createContext, useReducer, useEffect, useState } from 'react';
 import { Router } from "@/router/router"
 import { serverRequests } from '@/API/server.requests';
 import { authReducer } from '@/authReducer';
+import './global.css'
 
 type AuthContextType = {
     isAuth: boolean;
@@ -20,6 +21,7 @@ export const App = () => {
             .then(response => {
                 if (response.status === 200) {
                     dispatch({ type: 'isAuth' });
+                    console.log('User is authorized');
                 } else {
                     console.log('User is not authorized');
                 }
