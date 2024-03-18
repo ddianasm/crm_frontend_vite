@@ -27,11 +27,17 @@ const productForSend = {
 
 export const TableView = () => {
     const [products, setProducts] = useState<Products[]>([]);
-    const [selectedOrders, setSelectedOrders] = useState<{ [id: number]: boolean }>({});
+    // const [selectedOrders, setSelectedOrders] = useState<{ [id: number]: boolean }>({});
+    const [selectedOrders, setSelectedOrders] = useState<number[]>([]);
+    const productsId = products.map(product => {
+        return product.id
+    })
 
-    const ordersForDeletion = Object.entries(selectedOrders)
-        .filter(([key, value]) => value === true)
-        .map(([key, value]) => parseInt(key));
+
+
+    // const ordersForDeletion = Object.entries(selectedOrders)
+    //     .filter(([key, value]) => value === true)
+    //     .map(([key, value]) => parseInt(key));
 
     // const addProduct = () => {
     //     serverRequests.addProduct(productForSend)
@@ -83,7 +89,7 @@ export const TableView = () => {
 
     return (
         <div className="flex flex-col gap-[40px] justify-center items-center w-[90%]">
-            {Object.values(selectedOrders).some(value => value) &&
+            {selectedOrders.length > 0 &&
                 <div className="flex flex-row justify-start items-center p-lg_p gap-lg_gap bg-passive w-full text-dark text-center rounded-sm_radius">
                     <div>(number) entries selected</div>
                     <div className="text-dark">|</div>

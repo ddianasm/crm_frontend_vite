@@ -1,6 +1,7 @@
 import { useTable } from 'react-table'
 import { COLUMNS } from '@/components/table/columns'
 import classNames from 'classnames'
+import { FaCheck } from "react-icons/fa6";
 
 
 type Products = {
@@ -17,23 +18,29 @@ type Products = {
 }
 type BasicTableProps = {
     products: Products[];
-    selectedOrders: boolean;
-    setSelectedOrders: React.Dispatch<React.SetStateAction<{ [id: number]: boolean }>>;
+    selectedOrders: number[];
+    setSelectedOrders: React.Dispatch<React.SetStateAction<number[]>>;
 }
 export const BasicTable: React.FC<BasicTableProps> = ({ products, selectedOrders, setSelectedOrders }) => {
     console.log(selectedOrders);
 
     const handleCheckboxChange = (id: number) => {
-        setSelectedOrders(prevState => ({
-            ...prevState,
-            [id]: !prevState[id]
-        }));
+        if (selectedOrders.includes(id)) {
+            setSelectedOrders(prevState => prevState.filter(item => item !== id));
+        } else {
+            setSelectedOrders(prevState => [...prevState, id]);
+        }
+        console.log('setSelectedOrders', selectedOrders);
     };
 
     const data = products.map(item => ({
         ...item,
-        select: <input type="checkbox" className='h-[20px] w-[20px] cursor-pointer' onChange={() => handleCheckboxChange(item.id)} />
+        select: <label htmlFor={`checkbox${item.id}`} className='inline-flex justify-center items-center rounded-sm_radius w-[20px] h-[20px] cursor-pointer border border-gray-300"'>
+            <input type="checkbox" id={`checkbox${item.id}`} className='hidden' onChange={() => handleCheckboxChange(item.id)} />
+            {selectedOrders.includes(item.id) && <FaCheck className='text-primary' />}
+        </label>
     }))
+    // h-[20px] w-[20px] cursor-pointer
     const columns = COLUMNS
     const tableInstance = useTable({
         columns,

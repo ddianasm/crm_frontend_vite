@@ -1,6 +1,12 @@
+import { useState } from "react";
+import { FaCheck } from "react-icons/fa6";
+import { CheckBox, CheckBoxTableHeader } from "../checkBoxes/CheckBoxTableHeader";
 export const COLUMNS = [
     {
-        Header: "SELECT",
+        // Header: "Select",
+        Header: () => (
+            <CheckBoxTableHeader />
+        ),
         accessor: "select"
     },
     {

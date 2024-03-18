@@ -13,6 +13,8 @@ body {
   --primary: #7096d1;
   --primary2: #587dae;
   --passive: #7e868c;
+  /* In use */
+  /* border-gray-300 */
 
   /* Font Size */
   --sm_text: 14px;
