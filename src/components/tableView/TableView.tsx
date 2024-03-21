@@ -24,7 +24,15 @@ const productForSend = {
     status: 'new'
 }
 
-export const selectedOrdersContext = React.createContext<number[]>([]);
+type selectedOrdersContextType = {
+    selectedOrders: number[];
+    setSelectedOrders: React.Dispatch<React.SetStateAction<number[]>>;
+}
+
+export const selectedOrdersContext = createContext<selectedOrdersContextType>({
+    selectedOrders: [],
+    setSelectedOrders: () => { }
+});
 export const productsContext = React.createContext<Products[]>([]);
 
 
@@ -70,7 +78,7 @@ export const TableView = () => {
 
     return (
         <productsContext.Provider value={products}>
-            <selectedOrdersContext.Provider value={selectedOrders}>
+            <selectedOrdersContext.Provider value={{ selectedOrders, setSelectedOrders }}>
                 < div className="flex flex-col gap-[40px] justify-center items-center w-[90%]" >
                     {
                         selectedOrders.length > 0 &&
