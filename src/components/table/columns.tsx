@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
-import { CheckBox, CheckBoxTableHeader } from "../checkBoxes/CheckBoxTableHeader";
+import { CheckBoxTableHeader } from "@/components/checkBoxes/CheckBoxTableHeader";
+
+
 export const COLUMNS = [
     {
         // Header: "Select",

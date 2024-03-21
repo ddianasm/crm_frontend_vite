@@ -2,7 +2,7 @@ import { useTable } from 'react-table'
 import { COLUMNS } from '@/components/table/columns'
 import classNames from 'classnames'
 import { FaCheck } from "react-icons/fa6";
-
+import { CheckBoxTableRow } from '../checkBoxes/CheckBoxTableRow';
 
 type Products = {
     select: string,
@@ -16,32 +16,20 @@ type Products = {
     date: string,
     status: string
 }
-type BasicTableProps = {
+type TableProps = {
     products: Products[];
     selectedOrders: number[];
     setSelectedOrders: React.Dispatch<React.SetStateAction<number[]>>;
 }
-export const BasicTable: React.FC<BasicTableProps> = ({ products, selectedOrders, setSelectedOrders }) => {
-    console.log(selectedOrders);
 
-    const handleCheckboxChange = (id: number) => {
-        if (selectedOrders.includes(id)) {
-            setSelectedOrders(prevState => prevState.filter(item => item !== id));
-        } else {
-            setSelectedOrders(prevState => [...prevState, id]);
-        }
-        console.log('setSelectedOrders', selectedOrders);
-    };
+export const Table: React.FC<TableProps> = ({ products, selectedOrders, setSelectedOrders }) => {
 
     const data = products.map(item => ({
         ...item,
-        select: <label htmlFor={`checkbox${item.id}`} className='inline-flex justify-center items-center rounded-sm_radius w-[20px] h-[20px] cursor-pointer border border-gray-300"'>
-            <input type="checkbox" id={`checkbox${item.id}`} className='hidden' onChange={() => handleCheckboxChange(item.id)} />
-            {selectedOrders.includes(item.id) && <FaCheck className='text-primary' />}
-        </label>
+        select: <CheckBoxTableRow itemId={item.id} selectedOrders={selectedOrders} setSelectedOrders={setSelectedOrders} />
     }))
-    // h-[20px] w-[20px] cursor-pointer
     const columns = COLUMNS
+
     const tableInstance = useTable({
         columns,
         data
@@ -53,6 +41,7 @@ export const BasicTable: React.FC<BasicTableProps> = ({ products, selectedOrders
         rows,
         prepareRow
     } = tableInstance
+
     return (
         <table {...getTableProps} className="table-auto w-full border-collapse">
             <thead className="bg-primary text-light text-md_text">
