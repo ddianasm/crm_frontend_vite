@@ -61,7 +61,6 @@ export const TableView = () => {
         serverRequests.getUserProducts()
             .then(response => {
                 if (response.data) {
-                    console.log(response.data);
                     setProducts(response.data)
                 } else {
                     console.log('Products not received');
@@ -79,24 +78,8 @@ export const TableView = () => {
     return (
         <productsContext.Provider value={products}>
             <selectedOrdersContext.Provider value={{ selectedOrders, setSelectedOrders }}>
-                < div className="flex flex-col gap-[40px] justify-center items-center w-[90%]" >
-                    {
-                        selectedOrders.length > 0 &&
-                        <div className="flex flex-row justify-start items-center p-lg_p gap-lg_gap bg-passive w-full text-dark text-center rounded-sm_radius">
-                            <div>(number) entries selected</div>
-                            <div className="text-dark">|</div>
-                            <div className="flex flex-row items-center gap-md_gap">
-                                <div className="cursor-pointer text-md_text hover:text-light">Edit</div>
-                                <div className="cursor-pointer text-md_text hover:text-light">Add</div>
-                                <div className="cursor-pointer text-md_text hover:text-light" onClick={() => console.log('delete')}>Delete</div>
-                            </div>
-                        </div>
-                    }
-                    < Table
-                        products={products}
-                        selectedOrders={selectedOrders}
-                        setSelectedOrders={setSelectedOrders}
-                    />
+                < div className="flex flex-col gap-[40px] justify-center items-center w-[95%] mx-[40px]" >
+                    < Table />
                     {/* <AddProductModal /> */}
                 </div >
             </selectedOrdersContext.Provider>

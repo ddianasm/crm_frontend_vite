@@ -21,13 +21,13 @@ export const App = () => {
             .then(response => {
                 if (response.status === 200) {
                     dispatch({ type: 'isAuth' });
-                    console.log('User is authorized');
+                    console.log('User is authorised');
                 } else {
-                    console.log('User is not authorized');
+                    console.log('User is not authorised');
                 }
             })
             .catch(error => {
-                console.error('Error checking authorization:', error);
+                console.error('Error checking authorisation:', error);
             })
             .finally(() => {
                 setIsLoading(false);

@@ -7,26 +7,30 @@ body {
 }
 
 :root {
-  /* Main Colors */
+  /* Colors */
   --light: #ffffff;
-  --dark: #000000;
+  --dark: #424242;
   --primary: #7096d1;
   --primary2: #587dae;
-  --passive: #7e868c;
-  /* In use */
-  /* border-gray-300 */
+  --light_gray: #d1d1d1;
+  --gray: #9e9e9e;
 
   /* Font Size */
   --sm_text: 14px;
   --md_text: 16px;
-  --lg_text: 24px;
-  --xl_text: 30px;
+  --lg_text: 18px;
+  --xl_text: 24px;
+  --xxl_text: 30px;
   
   /* Padding */
   --xl_p: 24px;
-  --lg_p: 8px;
-  --md_p: 6px;
-  --sm_p: 4px;
+  --lg_p: 12px;
+  --md_p: 8px;
+  --sm_p: 6px;
+  --xs_p: 4px;
+
+  /* Margin */
+  --xl_m: 40px;
 
   /* Gap */
   --xl_gap: 50px;

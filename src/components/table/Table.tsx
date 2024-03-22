@@ -1,10 +1,10 @@
+import { useContext } from 'react';
 import { useTable } from 'react-table'
 import { COLUMNS } from '@/components/table/columns'
-import classNames from 'classnames'
-import { FaCheck } from "react-icons/fa6";
-import { CheckBoxTableRow } from '../checkBoxes/CheckBoxTableRow';
+import { productsContext } from "@/components/tableView/TableView";
+import { CheckBoxTable } from '../checkBox/CheckBox';
 
-type Products = {
+type Product = {
     select: string,
     id: number,
     name: string,
@@ -16,17 +16,19 @@ type Products = {
     date: string,
     status: string
 }
-type TableProps = {
-    products: Products[];
-    selectedOrders: number[];
-    setSelectedOrders: React.Dispatch<React.SetStateAction<number[]>>;
-}
+// type TableProps = {
+//     products: Products[];
+//     selectedOrders: number[];
+//     setSelectedOrders: React.Dispatch<React.SetStateAction<number[]>>;
+// }
 
-export const Table: React.FC<TableProps> = ({ products, selectedOrders, setSelectedOrders }) => {
+export const Table = () => {
+    const products = useContext(productsContext)
 
-    const data = products.map(item => ({
-        ...item,
-        select: <CheckBoxTableRow itemId={item.id} selectedOrders={selectedOrders} setSelectedOrders={setSelectedOrders} />
+    const data = products.map(product => ({
+        ...product,
+        select: <CheckBoxTable productId={product.id} />
+        // select: <CheckBoxTableRow productId={product.id} selectedOrders={selectedOrders} setSelectedOrders={setSelectedOrders} />
     }))
     const columns = COLUMNS
 
@@ -43,42 +45,47 @@ export const Table: React.FC<TableProps> = ({ products, selectedOrders, setSelec
     } = tableInstance
 
     return (
-        <table {...getTableProps} className="table-auto w-full border-collapse">
-            <thead className="bg-primary text-light text-md_text">
-                {
-                    headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {
-                                headerGroup.headers.map(column => (
-                                    <th {...column.getHeaderProps()} className="px-sm_p py-sm_p text-center">{column.render('Header')}</th>
-                                ))
-                            }
-                        </tr>
-                    ))
-                }
-            </thead>
-            <tbody {...getTableBodyProps}>
-                {
-                    rows.map(row => {
-                        prepareRow(row)
-                        return (
-                            <tr {...row.getRowProps()} className="border-t">
+        <div className='w-full p-xl_p rounded-sm_radius shadow-2xl'>
+            <div className='flex flex-row items-center p-sm_p'>
+                <div className='text-xl_text text-dark'>Products <span className='text-md_text text-gray'>(23)</span></div>
+            </div>
+            <table {...getTableProps} className="border-collapse w-full">
+                <thead className="text-gray text-md_text">
+                    {
+                        headerGroups.map(headerGroup => (
+                            <tr {...headerGroup.getHeaderGroupProps()}>
                                 {
-                                    row.cells.map(cell => {
-                                        return (
-                                            <td
-                                                {...cell.getCellProps()}
-                                                className='px-sm_p py-sm_p text-center'>
-                                                {cell.render('Cell')}
-                                            </td>
-                                        )
-                                    })
+                                    headerGroup.headers.map(column => (
+                                        <th {...column.getHeaderProps()} className="px-xs_p py-md_p text-center">{column.render('Header')}</th>
+                                    ))
                                 }
                             </tr>
-                        )
-                    })
-                }
-            </tbody>
-        </table>
+                        ))
+                    }
+                </thead>
+                <tbody {...getTableBodyProps}>
+                    {
+                        rows.map(row => {
+                            prepareRow(row)
+                            return (
+                                <tr {...row.getRowProps()} className="border-t border-light_gray">
+                                    {
+                                        row.cells.map(cell => {
+                                            return (
+                                                <td
+                                                    {...cell.getCellProps()}
+                                                    className='px-xs_p py-xl_p text-center text-dark'>
+                                                    {cell.render('Cell')}
+                                                </td>
+                                            )
+                                        })
+                                    }
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
+        </div>
     )
 }
