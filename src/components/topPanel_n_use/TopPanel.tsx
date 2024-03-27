@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/buttons/auth_button/Button';
-import { ThemeSwitcher } from '@/components/theme_switcher/ThemeSwitcher';
+import { ThemeSwitcher } from '@/components/theme_switcher_n_use/ThemeSwitcher';
 
 
 export const TopPanel = () => {

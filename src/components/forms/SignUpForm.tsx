@@ -6,11 +6,11 @@ import { Button } from '@/components/buttons/auth_button/Button';
 import { serverRequests } from "@/API/server.requests";
 import { IsAuthContext } from "@/App";
 
-type propsSignUpFormType = {
+type signUpFormPropsType = {
     setCurrentForm: React.Dispatch<React.SetStateAction<'signUp' | 'signIn'>>;
 }
 
-export const SignUpForm: React.FC<propsSignUpFormType> = ({ setCurrentForm }) => {
+export const SignUpForm: React.FC<signUpFormPropsType> = ({ setCurrentForm }) => {
     const [signUpData, setSignUpData] = useState<{ username: string; password: string; }>({ username: '', password: '' })
     const IsAuthContextCheck = useContext(IsAuthContext)
 

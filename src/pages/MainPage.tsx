@@ -3,7 +3,7 @@ import { TableView } from "@/components/tableView/TableView"
 
 export const MainPage = () => {
     return (
-        <div className="flex flex-row w-screen h-screen">
+        <div className="flex flex-row w-screen h-screen relative">
             <LeftPanel />
             <TableView />
         </div>

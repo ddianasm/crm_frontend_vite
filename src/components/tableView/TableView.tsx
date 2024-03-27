@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, useEffect, useState } from "react"
 import { serverRequests } from "@/API/server.requests"
 import { Table } from "@/components/table/Table"
+import { AddProductModal } from "@/components/modals/AddProductModal"
 
 type Products = {
     id: number,
@@ -39,6 +40,7 @@ export const productsContext = React.createContext<Products[]>([]);
 export const TableView = () => {
     const [products, setProducts] = useState<Products[]>([]);
     const [selectedOrders, setSelectedOrders] = useState<number[]>([]);
+    const [showAddProductModal, setShowAddProductModal] = useState<boolean>(true)
 
 
 
@@ -79,8 +81,10 @@ export const TableView = () => {
         <productsContext.Provider value={products}>
             <selectedOrdersContext.Provider value={{ selectedOrders, setSelectedOrders }}>
                 < div className="flex flex-col gap-[40px] justify-center items-center w-[95%] mx-[40px]" >
-                    < Table />
-                    {/* <AddProductModal /> */}
+                    < Table setShowAddProductModal={setShowAddProductModal} />
+                    {/* {showAddProductModal &&
+                        <AddProductModal />
+                    } */}
                 </div >
             </selectedOrdersContext.Provider>
         </productsContext.Provider>
