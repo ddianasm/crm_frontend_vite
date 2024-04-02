@@ -1,18 +1,18 @@
-import { useContext } from 'react';
 import { useTable } from 'react-table'
 import { COLUMNS } from '@/components/table/Columns'
-import { productsContext, selectedOrdersContext } from "@/components/tableView/TableView";
 import { CheckBoxTable } from '../checkBox/CheckBox';
 import { IoAdd } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
+import { useProductContext } from '@/contexts/ProductContext';
+import { useSelectedProductsContext } from '@/contexts/SelectedProductsContext';
 
 type TablePropsType = {
     setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Table: React.FC<TablePropsType> = ({ setShowAddProductModal }) => {
-    const products = useContext(productsContext)
-    const selectedOrders = useContext(selectedOrdersContext)
+    const products = useProductContext()
+    const selectedOrders = useSelectedProductsContext()
 
 
     const data = products.map(product => ({

@@ -1,6 +1,5 @@
 import { IoCloseOutline } from "react-icons/io5";
 import { ModalInput } from "@/components/modals/modalInput/ModalInput";
-import { ProductStatus } from "../productStatus/ProductStatus";
 
 export const AddProductModal = () => {
     return (
@@ -27,10 +26,10 @@ export const AddProductModal = () => {
                     <div className="flex flex-row justify-between items-center w-full">
                         <div className="text-sm_text text-gray">Select status</div>
                         <div className="flex flex-row items-center justify-center gap-lg_gap text-md_text">
-                            <ProductStatus styles="bg-[#EAF8F0] text-[#70C68E]">New<ProductStatus />
-                                <div className="bg-[#EAF8F0] text-[#70C68E] rounded-sm_radius p-sm_p font-bold cursor-pointer">New</div>
-                                <div className="bg-[#FDFAEB] text-[#EAD25D] rounded-sm_radius p-sm_p font-bold cursor-pointer">In process</div>
-                                <div className="bg-[#F5F1FA] text-[#AC89DA] rounded-sm_radius p-sm_p font-bold cursor-pointer">Completed</div>
+                            {/* <ProductStatus styles="bg-[#EAF8F0] text-[#70C68E]">New<ProductStatus /> */}
+                            <div className="bg-[#EAF8F0] text-[#70C68E] rounded-sm_radius p-sm_p font-bold cursor-pointer">New</div>
+                            <div className="bg-[#FDFAEB] text-[#EAD25D] rounded-sm_radius p-sm_p font-bold cursor-pointer">In process</div>
+                            <div className="bg-[#F5F1FA] text-[#AC89DA] rounded-sm_radius p-sm_p font-bold cursor-pointer">Completed</div>
                         </div>
                     </div>
                 </div>

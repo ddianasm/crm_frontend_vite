@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
-import { selectedOrdersContext, productsContext } from '@/components/tableView/TableView';
+import React from 'react';
 import { IoCheckmarkSharp } from "react-icons/io5";
+import { useSelectedProductsContext } from '@/contexts/SelectedProductsContext';
+import { useProductContext } from '@/contexts/ProductContext';
 
 type CheckBoxTableProps = {
     productId?: number;
 };
 
 export const CheckBoxTable: React.FC<CheckBoxTableProps> = ({ productId }) => {
-    const { selectedOrders, setSelectedOrders } = useContext(selectedOrdersContext);
-    const products = useContext(productsContext);
+    const { selectedOrders, setSelectedOrders } = useSelectedProductsContext();
+    const products = useProductContext();
     const productsId = products.map(product => product.id);
 
     const handleCheckboxChange = (id?: number) => {

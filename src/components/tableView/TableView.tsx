@@ -1,48 +1,15 @@
-import React, { createContext, useReducer, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { serverRequests } from "@/API/server.requests"
 import { Table } from "@/components/table/Table"
-import { AddProductModal } from "@/components/modals/AddProductModal"
-
-type Products = {
-    id: number,
-    name: string,
-    amount: number,
-    price: number,
-    customer: string,
-    email: string,
-    phone: string,
-    date: string,
-    status: string
-}
-
-const productForSend = {
-    name: 'laptop',
-    amount: 1,
-    price: 100,
-    customer: 'JuliaG',
-    email: 'ggg@gmail.com',
-    phone: '+380777777777',
-    status: 'new'
-}
-
-type selectedOrdersContextType = {
-    selectedOrders: number[];
-    setSelectedOrders: React.Dispatch<React.SetStateAction<number[]>>;
-}
-
-export const selectedOrdersContext = createContext<selectedOrdersContextType>({
-    selectedOrders: [],
-    setSelectedOrders: () => { }
-});
-export const productsContext = React.createContext<Products[]>([]);
+import { ProductProvider, Products } from "@/contexts/ProductContext"
+import { SelectedProductsProvider } from "@/contexts/SelectedProductsContext"
+import { TableState } from "@/store/TableState"
 
 
 export const TableView = () => {
     const [products, setProducts] = useState<Products[]>([]);
     const [selectedOrders, setSelectedOrders] = useState<number[]>([]);
     const [showAddProductModal, setShowAddProductModal] = useState<boolean>(true)
-
-
 
     // const deleteProduct = () => {
     //     serverRequests.deleteProduct(selectedOrders)
@@ -77,16 +44,20 @@ export const TableView = () => {
         getProducts()
     }, [])
 
+    useEffect(() => {
+        console.log(TableState.rows)
+    }, [])
+
     return (
-        <productsContext.Provider value={products}>
-            <selectedOrdersContext.Provider value={{ selectedOrders, setSelectedOrders }}>
+        <ProductProvider value={products}>
+            <SelectedProductsProvider value={{ selectedOrders, setSelectedOrders }}>
                 < div className="flex flex-col gap-[40px] justify-center items-center w-[95%] mx-[40px]" >
                     < Table setShowAddProductModal={setShowAddProductModal} />
                     {/* {showAddProductModal &&
                         <AddProductModal />
                     } */}
                 </div >
-            </selectedOrdersContext.Provider>
-        </productsContext.Provider>
+            </SelectedProductsProvider >
+        </ProductProvider >
     )
 }
