@@ -1,6 +1,6 @@
 import React, { useContext, createContext } from "react";
 
-export type Products = {
+export type ProductType = {
     id: number,
     name: string,
     amount: number,
@@ -22,11 +22,11 @@ const productForSend = {
     status: 'new'
 }
 export type ProductProviderPropsType = {
-    value: Products[],
+    value: ProductType[],
     children: React.ReactNode
 }
 
-export const ProductsContext = createContext<Products[]>([]);
+export const ProductsContext = createContext<ProductType[]>([]);
 export const useProductContext = () => {
     const context = useContext(ProductsContext)
     if (!context) throw new Error("Not found 'ProductProvider'")

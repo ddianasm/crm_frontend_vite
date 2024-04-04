@@ -7,7 +7,7 @@ export const initialProducts = [
         "customer": "JuliaG",
         "email": "ggg@gmail.com",
         "phone": "+380777777777",
-        "date": "2024-03-07T16:30:59.960Z",
+        "date": "2024-03-07 16:30:59.960Z",
         "status": "new"
     },
     {
