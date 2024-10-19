@@ -3,7 +3,7 @@ import { makeAutoObservable } from "mobx"
 import { initialProducts } from "@/store/initalTableData"
 
 class TableStore {
-    rows: ProductType[] = initialProducts
+    rows: ProductType[] = []
     selectedRows: number[] = []
 
     constructor() {
@@ -14,6 +14,7 @@ class TableStore {
         return this.rows.map(row => row.id)
     }
     get allIsSelected() {
+        if (this.rows.length === 0) return false;
         return this.rowIdList.every(id =>
             this.selectedRows.includes(id)
         )
@@ -22,11 +23,14 @@ class TableStore {
     setRows(rows: ProductType[]) {
         this.rows = rows
     }
+
     toggleAllSelectedRows() {
+        console.log('toggleAllSelectedRows');
         if (!this.allIsSelected) this.selectedRows = this.rowIdList
         else this.selectedRows = []
     }
     toggleSelectedRows(id: number) {
+        console.log(id);
         const idIsSelected = this.selectedRows.includes(id)
         if (!idIsSelected)
             this.selectedRows = [...this.selectedRows, id]

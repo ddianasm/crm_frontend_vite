@@ -2,7 +2,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Logo } from '@/components/logo/Logo';
-import { Button } from '@/components/buttons/auth_button/Button';
+import { AuthButton } from '@/components/buttons/auth_button/AuthButton';
 import { serverRequests } from '@/API/server.requests';
 import { IsAuthContext } from "@/App";
 
@@ -55,8 +55,8 @@ export const SignInForm: React.FC<signInFormPropsType> = ({ setCurrentForm }) =>
                             onChange={e => setSignInData({ ...signInData, password: e.target.value })}
                             required />
                     </div>
-                    <Button className='w-full h-[50px] text-light hover:bg-primary2 bg-primary' onClick={handleAuthRequest}>Sign In</Button>
-                    <Button className='w-full h-[50px] text-light hover:bg-gray bg-light_gray' onClick={() => setCurrentForm('signUp')}>Sign Up</Button>
+                    <AuthButton className='w-full h-[50px] text-light hover:bg-primary2 bg-primary' onClick={handleAuthRequest}>Sign In</AuthButton>
+                    <AuthButton className='w-full h-[50px] text-light hover:bg-gray bg-light_gray' onClick={() => setCurrentForm('signUp')}>Sign Up</AuthButton>
                 </div>
             </div>
         </div>

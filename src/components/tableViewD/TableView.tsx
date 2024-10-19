@@ -4,12 +4,13 @@ import { Table } from "@/components/table/Table"
 import { ProductProvider, ProductType } from "@/contexts/ProductContext"
 import { SelectedProductsProvider } from "@/contexts/SelectedProductsContext"
 import { TableState } from "@/store/TableState"
+import { AddProductModal } from "@/components/modals/AddProductModal"
 
 
 export const TableView = () => {
     const [products, setProducts] = useState<ProductType[]>([]);
     const [selectedOrders, setSelectedOrders] = useState<number[]>([]);
-    const [showAddProductModal, setShowAddProductModal] = useState<boolean>(true)
+    const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false)
 
     // const deleteProduct = () => {
     //     serverRequests.deleteProduct(selectedOrders)
@@ -53,9 +54,9 @@ export const TableView = () => {
             <SelectedProductsProvider value={{ selectedOrders, setSelectedOrders }}>
                 <div className="flex flex-col gap-[40px] justify-center items-center w-[95%] mx-[40px]" >
                     < Table setShowAddProductModal={setShowAddProductModal} />
-                    {/* {showAddProductModal &&
-                        <AddProductModal />
-                    } */}
+                    {showAddProductModal &&
+                        <AddProductModal setShowAddProductModal={setShowAddProductModal} />
+                    }
                 </div >
             </SelectedProductsProvider >
         </ProductProvider >

@@ -1,5 +1,5 @@
 import { useTable } from 'react-table'
-import { COLUMNS } from '@/components/table/Columns'
+import { COLUMNS } from '@/components/table/columns'
 import { CheckBoxTable } from '../checkBox/CheckBox';
 import { IoAdd } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -12,7 +12,7 @@ type TablePropsType = {
 
 export const Table: React.FC<TablePropsType> = ({ setShowAddProductModal }) => {
     const products = useProductContext()
-    const selectedOrders = useSelectedProductsContext()
+    const selectedOrders = useSelectedProductsContext() // вибрані продукти контекст
 
 
     const data = products.map(product => ({
@@ -37,7 +37,21 @@ export const Table: React.FC<TablePropsType> = ({ setShowAddProductModal }) => {
         <div className='w-full p-xl_p rounded-sm_radius shadow-2xl'>
             <div className='flex flex-row justify-between items-center p-sm_p'>
                 <div className='text-xl_text text-dark'>Products <span className='text-md_text text-gray'>({products.length})</span></div>
-                {selectedOrders.selectedOrders.length > 0 &&
+
+                <div className='flex flex-row gap-lg_gap text-md_text'>
+                    <div className='flex flex-row justify-center items-center p-md_p rounded-sm_radius text-light text-md_text gap-sm_gap bg-primary cursor-pointer'
+                        onClick={() => { setShowAddProductModal(true) }}
+                    >
+                        <IoAdd className='text-light text-[20px]' />
+                        <div>Add</div>
+                    </div>
+                    <div className='flex flex-row justify-center items-center p-md_p rounded-sm_radius text-light gap-sm_gap bg-gray cursor-pointer'>
+                        <AiOutlineDelete className='text-light text-[20px]' />
+                        <div>Delete</div>
+                    </div>
+                </div>
+
+                {/* {selectedOrders.selectedOrders.length > 0 &&
                     <div className='flex flex-row gap-lg_gap text-md_text'>
                         <div className='flex flex-row justify-center items-center p-md_p rounded-sm_radius text-light text-md_text gap-sm_gap bg-primary cursor-pointer'
                             onClick={() => { setShowAddProductModal(true) }}
@@ -50,7 +64,7 @@ export const Table: React.FC<TablePropsType> = ({ setShowAddProductModal }) => {
                             <div>Delete</div>
                         </div>
                     </div>
-                }
+                } */}
             </div>
             <table {...getTableProps} className="border-collapse w-full">
                 <thead className="text-gray text-md_text">

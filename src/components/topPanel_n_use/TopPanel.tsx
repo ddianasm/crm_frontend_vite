@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@/components/buttons/auth_button/Button';
+import { Button } from '@/components/buttons/auth_button/AuthButton';
 import { ThemeSwitcher } from '@/components/theme_switcher_n_use/ThemeSwitcher';
 
 

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react"
 import { TableState } from "@/store/TableState";
 import cn from "classnames"
 import { observer } from "mobx-react-lite";
@@ -5,14 +6,52 @@ import { IoCheckmarkSharp } from "react-icons/io5";
 import { ProductType } from "@/contexts/ProductContext"
 import { IoAdd } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
+import { AddProductModal } from "@/components/modals/AddProductModal"
+import { serverRequests } from "@/API/server.requests"
 
-const columns = Object.keys(TableState.rows[0])
+type TAddProductModalProps = {
+    setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-//зміна {(row[column as keyof ProductType])}
 export const TableView = observer(() => {
+    const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false)
+    const [columns, setColumns] = useState<string[]>([]);
+
+    const getProducts = () => {
+        serverRequests.getUserProducts()
+            .then(response => {
+                if (response.data) {
+                    TableState.setRows(response.data);
+                } else {
+                    console.log('Дані не отримані.');
+                }
+            })
+            .catch(error => {
+                console.error('Error getting product:', error);
+            })
+    }
+    const getColumns = () => {
+        serverRequests.getColumns()
+            .then(response => {
+                if (response.data) {
+                    setColumns(response.data)
+                } else {
+                    console.log('Дані не отримані.');
+                }
+            })
+            .catch(error => {
+                console.error('Error getting columns:', error);
+            })
+    }
+
+    useEffect(() => {
+        getColumns()
+        getProducts()
+    }, [])
+
     return (
         <div className="w-full p-xl_p rounded-sm_radius shadow-2xl">
-            <TableUtilities />
+            <TableUtilities setShowAddProductModal={setShowAddProductModal} />
             <TableContainer>
                 <HeaderRow>
                     <HeaderRowCheckBox />
@@ -22,32 +61,34 @@ export const TableView = observer(() => {
                         </Column>
                     )}
                 </HeaderRow>
-                {TableState.rows.map(row =>
-                    <Row key={row.id}>
-                        <RowCheckBox rowId={row.id} />
-                        {columns.map(column =>
-                            <Column key={column} className="text-dark">
-                                {(row[column as keyof ProductType])}
-                            </Column>
-                        )}
-                    </Row>
-                )}
+                {
+                    TableState.rows.map(row =>
+                        <Row key={row.id}>
+                            <RowCheckBox rowId={row.id} />
+                            {columns.map(column =>
+                                <Column key={column} className="text-dark">
+                                    {(row[column as keyof ProductType])}
+                                </Column>
+                            )}
+                        </Row>
+                    )
+                }
             </TableContainer>
+            {showAddProductModal &&
+                <AddProductModal setShowAddProductModal={setShowAddProductModal} />
+            }
         </div>
     )
 })
 
 type divPropsType = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-//додано тип
 type labelPropsType = React.DetailedHTMLProps<React.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
-//додано тип
 type CheckBoxPropsType = {
     className?: string;
     rowId?: number;
     condition: boolean;
     handler: () => void;
 }
-//додано тип
 type RowCheckBoxType = {
     rowId: number
 }
@@ -61,14 +102,14 @@ const TableContainer: React.FC<divPropsType> = ({ children, className, ...props 
     )
 }
 
-const TableUtilities = observer(() => {
+const TableUtilities: React.FC<TAddProductModalProps> = observer(({ setShowAddProductModal }) => {
     return (
         <div className='flex flex-row justify-between items-center p-sm_p'>
             <div className='text-xl_text text-dark'>Products <span className='text-md_text text-gray'>({TableState.rows.length})</span></div>
             {true &&
                 <div className='flex flex-row gap-lg_gap text-md_text'>
                     <div className='flex flex-row justify-center items-center p-md_p rounded-sm_radius text-light text-md_text gap-sm_gap bg-primary cursor-pointer'
-                        onClick={() => console.log('add')}
+                        onClick={() => setShowAddProductModal(true)}
                     >
                         <IoAdd className='text-light text-[20px]' />
                         <div>Add</div>

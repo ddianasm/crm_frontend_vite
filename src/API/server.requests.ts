@@ -14,5 +14,6 @@ export const serverRequests = {
     mainInstance.post('/add_product', data),
   deleteProduct: async (data: number[]) =>
     mainInstance.post('delete_product', data),
-  getUserProducts: async () => await mainInstance.get('/get_products')
+  getUserProducts: async () => await mainInstance.get('/get_products'),
+  getColumns: async () => await mainInstance.get('/columns')
 };
