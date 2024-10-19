@@ -3,6 +3,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import { ModalInput } from "@/components/modals/modalInput/ModalInput";
 import { serverRequests } from "@/API/server.requests";
 import { StatusButton } from "../buttons/status_button/StatusButton";
+import { ActionButton } from "../buttons/action_button/ActionButton";
 
 type TAddProductModalPropsType = {
     setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,7 +37,6 @@ export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAd
         phone: '',
         status: EProductStatus.NEW
     })
-    const [selectedStatus, setSelectedStatus] = useState<EProductStatus>(EProductStatus.NEW)
 
     function handleProductDataChange(ProductDataName: TProductDataName, event?: React.ChangeEvent<HTMLInputElement>, status?: EProductStatus) {
         setProductData(prev => ({
@@ -88,17 +88,17 @@ export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAd
                     <div className="flex flex-row justify-between items-center w-full">
                         <div className="text-sm_text text-gray">Select status</div>
                         <div className="flex flex-row items-center justify-center gap-lg_gap text-md_text">
-                            <StatusButton className="bg-[#EAF8F0] text-[#70C68E] border" onClick={() => handleProductDataChange('status', undefined, EProductStatus.NEW)}>{EProductStatus.NEW}</StatusButton>
-                            <StatusButton className="bg-[#FDFAEB] text-[#EAD25D] border" onClick={() => handleProductDataChange('status', undefined, EProductStatus.IN_PROCESS)}>{EProductStatus.IN_PROCESS}</StatusButton>
-                            <StatusButton className="bg-[#F5F1FA] text-[#AC89DA] border" onClick={() => handleProductDataChange('status', undefined, EProductStatus.COMPLETED)}>{EProductStatus.COMPLETED}</StatusButton>
+                            <StatusButton className={`bg-[#EAF8F0] text-[#70C68E] ${productData.status === EProductStatus.NEW ? 'border' : ''}`} onClick={() => handleProductDataChange('status', undefined, EProductStatus.NEW)}>{EProductStatus.NEW}</StatusButton>
+                            <StatusButton className={`bg-[#FDFAEB] text-[#EAD25D] ${productData.status === EProductStatus.IN_PROCESS ? 'border' : ''}`} onClick={() => handleProductDataChange('status', undefined, EProductStatus.IN_PROCESS)}>{EProductStatus.IN_PROCESS}</StatusButton>
+                            <StatusButton className={`bg-[#F5F1FA] text-[#AC89DA] ${productData.status === EProductStatus.COMPLETED ? 'border' : ''}`} onClick={() => handleProductDataChange('status', undefined, EProductStatus.COMPLETED)}>{EProductStatus.COMPLETED}</StatusButton>
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-row justify-around w-full gap-md_gap">
-                    <button className="bg-light px-xl_p py-md_p rounded-sm_radius text-primary border-2 text-md_text w-full font-bold">Discard</button>
-                    <button className="bg-primary hover:bg-primary2 px-xl_p py-md_p rounded-sm_radius text-light text-md_text w-full font-bold" onClick={addProduct}>Add Product</button>
+                    <ActionButton className="bg-light border-2 text-primary" onClick={() => console.log('clicked discard')}>Discard</ActionButton>
+                    <ActionButton className="bg-primary hover:bg-primary2 text-light" onClick={addProduct}>Add Product</ActionButton>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
