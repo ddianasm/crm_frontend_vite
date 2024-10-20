@@ -8,6 +8,10 @@ import { IoAdd } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
 import { AddProductModal } from "@/components/modals/AddProductModal"
 import { serverRequests } from "@/API/server.requests"
+import { getProducts } from "@/productService";
+import { StatusButton } from "../buttons/status_button/StatusButton";
+import { EProductStatus } from "@/components/modals/AddProductModal";
+import { ProductActionButton } from "../buttons/product_action_button/ProductActionButton";
 
 type TAddProductModalProps = {
     setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,19 +21,6 @@ export const TableView = observer(() => {
     const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false)
     const [columns, setColumns] = useState<string[]>([]);
 
-    const getProducts = () => {
-        serverRequests.getUserProducts()
-            .then(response => {
-                if (response.data) {
-                    TableState.setRows(response.data);
-                } else {
-                    console.log('Дані не отримані.');
-                }
-            })
-            .catch(error => {
-                console.error('Error getting product:', error);
-            })
-    }
     const getColumns = () => {
         serverRequests.getColumns()
             .then(response => {
@@ -65,11 +56,14 @@ export const TableView = observer(() => {
                     TableState.rows.map(row =>
                         <Row key={row.id}>
                             <RowCheckBox rowId={row.id} />
-                            {columns.map(column =>
+                            {columns.filter(column => column !== 'status').map(column => (
                                 <Column key={column} className="text-dark">
                                     {(row[column as keyof ProductType])}
                                 </Column>
-                            )}
+                            ))}
+                            <Column key={'status'}>
+                                <StatusButton className={`bg-[#EAF8F0] text-[#70C68E]`} onClick={() => console.log('буде функція')}>{row.status as EProductStatus}</StatusButton>
+                            </Column>
                         </Row>
                     )
                 }
@@ -107,17 +101,9 @@ const TableUtilities: React.FC<TAddProductModalProps> = observer(({ setShowAddPr
         <div className='flex flex-row justify-between items-center p-sm_p'>
             <div className='text-xl_text text-dark'>Products <span className='text-md_text text-gray'>({TableState.rows.length})</span></div>
             {true &&
-                <div className='flex flex-row gap-lg_gap text-md_text'>
-                    <div className='flex flex-row justify-center items-center p-md_p rounded-sm_radius text-light text-md_text gap-sm_gap bg-primary cursor-pointer'
-                        onClick={() => setShowAddProductModal(true)}
-                    >
-                        <IoAdd className='text-light text-[20px]' />
-                        <div>Add</div>
-                    </div>
-                    <div className='flex flex-row justify-center items-center p-md_p rounded-sm_radius text-light gap-sm_gap bg-gray cursor-pointer'>
-                        <AiOutlineDelete className='text-light text-[20px]' />
-                        <div>Delete</div>
-                    </div>
+                <div className='flex flex-row gap-lg_gap'>
+                    <ProductActionButton className="bg-primary" onClick={() => setShowAddProductModal(true)} icon={<IoAdd className='text-light text-[20px]' />}>Add</ProductActionButton>
+                    <ProductActionButton className="bg-gray" onClick={() => console.log('delete')} icon={<AiOutlineDelete className='text-light text-[20px]' />}>Delete</ProductActionButton>
                 </div>
             }
         </div>

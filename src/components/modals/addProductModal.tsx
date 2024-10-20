@@ -2,8 +2,10 @@ import React, { useState } from "react"
 import { IoCloseOutline } from "react-icons/io5";
 import { ModalInput } from "@/components/modals/modalInput/ModalInput";
 import { serverRequests } from "@/API/server.requests";
-import { StatusButton } from "../buttons/status_button/StatusButton";
-import { ActionButton } from "../buttons/action_button/ActionButton";
+import { StatusButton } from "@/components/buttons/status_button/StatusButton";
+import { ModalActionButton } from "@/components/buttons/modal_action_button/ModalActionButton";
+import { getProducts } from "@/productService";
+import { addProduct } from "@/productService";
 
 type TAddProductModalPropsType = {
     setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,43 +28,42 @@ type TProductData = {
 
 export type TProductDataName = keyof TProductData;
 
+const initialProductData: TProductData = {
+    name: '',
+    amount: '',
+    price: '',
+    customer: '',
+    email: '',
+    phone: '',
+    status: EProductStatus.NEW,
+};
+
 
 export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAddProductModal }) => {
-    const [productData, setProductData] = useState<TProductData>({
-        name: '',
-        amount: '',
-        price: '',
-        customer: '',
-        email: '',
-        phone: '',
-        status: EProductStatus.NEW
-    })
+    const [productData, setProductData] = useState<TProductData>(initialProductData)
 
-    function handleProductDataChange(ProductDataName: TProductDataName, event?: React.ChangeEvent<HTMLInputElement>, status?: EProductStatus) {
+    const handleProductDataChange = (
+        ProductDataName: TProductDataName,
+        event?: React.ChangeEvent<HTMLInputElement>,
+        status?: EProductStatus) => {
         setProductData(prev => ({
             ...prev,
             [ProductDataName]: status ?? event?.target.value
         }));
     }
 
-    const addProduct = () => {
+    const handleAddProduct = () => {
         const preparedData = {
             ...productData,
             amount: parseFloat(productData.amount),
             price: parseFloat(productData.price),
         }
-        console.log(preparedData);
-        serverRequests.addProduct(preparedData)
-            .then(response => {
-                if (response.status === 200) {
-                    console.log('товар додано в бд');; // Встановлюємо рядки
-                } else {
-                    console.log('товар не додано в бд');
-                }
-            })
-            .catch(error => {
-                console.error('Error getting product:', error);
-            })
+        addProduct(preparedData)
+        setShowAddProductModal(false)
+    }
+
+    const handleDiscardProductData = () => {
+        setProductData(initialProductData)
     }
 
     return (
@@ -88,15 +89,15 @@ export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAd
                     <div className="flex flex-row justify-between items-center w-full">
                         <div className="text-sm_text text-gray">Select status</div>
                         <div className="flex flex-row items-center justify-center gap-lg_gap text-md_text">
-                            <StatusButton className={`bg-[#EAF8F0] text-[#70C68E] ${productData.status === EProductStatus.NEW ? 'border' : ''}`} onClick={() => handleProductDataChange('status', undefined, EProductStatus.NEW)}>{EProductStatus.NEW}</StatusButton>
-                            <StatusButton className={`bg-[#FDFAEB] text-[#EAD25D] ${productData.status === EProductStatus.IN_PROCESS ? 'border' : ''}`} onClick={() => handleProductDataChange('status', undefined, EProductStatus.IN_PROCESS)}>{EProductStatus.IN_PROCESS}</StatusButton>
-                            <StatusButton className={`bg-[#F5F1FA] text-[#AC89DA] ${productData.status === EProductStatus.COMPLETED ? 'border' : ''}`} onClick={() => handleProductDataChange('status', undefined, EProductStatus.COMPLETED)}>{EProductStatus.COMPLETED}</StatusButton>
+                            <StatusButton className={`${productData.status === EProductStatus.NEW ? 'border' : ''}`} onClick={() => handleProductDataChange('status', undefined, EProductStatus.NEW)}>{EProductStatus.NEW}</StatusButton>
+                            <StatusButton className={`${productData.status === EProductStatus.IN_PROCESS ? 'border' : ''}`} onClick={() => handleProductDataChange('status', undefined, EProductStatus.IN_PROCESS)}>{EProductStatus.IN_PROCESS}</StatusButton>
+                            <StatusButton className={`${productData.status === EProductStatus.COMPLETED ? 'border' : ''}`} onClick={() => handleProductDataChange('status', undefined, EProductStatus.COMPLETED)}>{EProductStatus.COMPLETED}</StatusButton>
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-row justify-around w-full gap-md_gap">
-                    <ActionButton className="bg-light border-2 text-primary" onClick={() => console.log('clicked discard')}>Discard</ActionButton>
-                    <ActionButton className="bg-primary hover:bg-primary2 text-light" onClick={addProduct}>Add Product</ActionButton>
+                    <ModalActionButton className="bg-light border-2 text-primary" onClick={handleDiscardProductData}>Discard</ModalActionButton>
+                    <ModalActionButton className="bg-primary hover:bg-primary2 text-light" onClick={handleAddProduct}>Add Product</ModalActionButton>
                 </div>
             </div>
         </div >
