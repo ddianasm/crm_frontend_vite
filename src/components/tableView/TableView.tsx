@@ -12,6 +12,7 @@ import { getProducts } from "@/productService";
 import { StatusButton } from "../buttons/status_button/StatusButton";
 import { EProductStatus } from "@/components/modals/AddProductModal";
 import { ProductActionButton } from "../buttons/product_action_button/ProductActionButton";
+import { deleteProducts } from "@/productService";
 
 type TAddProductModalProps = {
     setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -97,13 +98,19 @@ const TableContainer: React.FC<divPropsType> = ({ children, className, ...props 
 }
 
 const TableUtilities: React.FC<TAddProductModalProps> = observer(({ setShowAddProductModal }) => {
+    const handleDeleteClick = () => {
+        if (TableState.selectedRows.length !== 0) {
+            console.log('delete');
+            deleteProducts(TableState.selectedRows)
+        }
+    }
     return (
         <div className='flex flex-row justify-between items-center p-sm_p'>
             <div className='text-xl_text text-dark'>Products <span className='text-md_text text-gray'>({TableState.rows.length})</span></div>
             {true &&
                 <div className='flex flex-row gap-lg_gap'>
                     <ProductActionButton className="bg-primary" onClick={() => setShowAddProductModal(true)} icon={<IoAdd className='text-light text-[20px]' />}>Add</ProductActionButton>
-                    <ProductActionButton className="bg-gray" onClick={() => console.log('delete')} icon={<AiOutlineDelete className='text-light text-[20px]' />}>Delete</ProductActionButton>
+                    <ProductActionButton className="bg-gray" onClick={handleDeleteClick} icon={<AiOutlineDelete className='text-light text-[20px]' />}>Delete</ProductActionButton>
                 </div>
             }
         </div>

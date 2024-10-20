@@ -12,8 +12,8 @@ export const serverRequests = {
   checkAuthAsync: async () => await mainInstance.get("/auth"),
   addProduct: async (data: { name: string, amount: number, price: number, customer: string, email: string, phone: string, status: string }) =>
     mainInstance.post('/add_product', data),
-  deleteProduct: async (data: number[]) =>
-    mainInstance.post('delete_product', data),
+  deleteProducts: async (data: number[]) =>
+    mainInstance.post('/products/delete', data),
   getUserProducts: async () => await mainInstance.get('/get_products'),
   getColumns: async () => await mainInstance.get('/columns')
 };

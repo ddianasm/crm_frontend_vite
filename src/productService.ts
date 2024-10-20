@@ -40,3 +40,18 @@ export const addProduct = (product: TSendProductData) => {
             console.error('Error getting product:', error);
         })
 }
+
+export const deleteProducts = (products: number[]) => {
+    serverRequests.deleteProducts(products)
+        .then(response => {
+            if (response.status === 200) {
+                console.log('Products deleted successfully');
+                getProducts()
+            } else {
+                console.log('Product not deleted');
+            }
+        })
+        .catch(error => {
+            console.error('Error deletion product:', error);
+        })
+}
