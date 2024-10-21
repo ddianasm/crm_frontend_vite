@@ -1,10 +1,9 @@
 'use client'
-import { useState, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
 import { Logo } from '@/components/logo/Logo';
 import { AuthButton } from '@/components/buttons/auth_button/AuthButton';
 import { serverRequests } from '@/API/server.requests';
-import { IsAuthContext } from "@/App";
+import { UserState } from '@/store/UserState';
 
 type signInFormPropsType = {
     setCurrentForm: React.Dispatch<React.SetStateAction<'signUp' | 'signIn'>>;
@@ -13,15 +12,12 @@ type signInFormPropsType = {
 export const SignInForm: React.FC<signInFormPropsType> = ({ setCurrentForm }) => {
     const [signInData, setSignInData] = useState<{ username: string; password: string; }>({ username: '', password: '' })
 
-    const IsAuthContextCheck = useContext(IsAuthContext)
-    const navigate = useNavigate();
-
     const handleAuthRequest = () => {
         serverRequests.sendSignInDataAsync(signInData)
             .then(response => {
                 if (response.status === 200) {
-                    IsAuthContextCheck.dispatch({ type: 'isAuth' });
-                    navigate('/');
+                    console.log(response.data.user);
+                    UserState.setUser(response.data.user)
                 } else {
                     console.log('User is not authorized');
                 }
@@ -62,5 +58,3 @@ export const SignInForm: React.FC<signInFormPropsType> = ({ setCurrentForm }) =>
         </div>
     )
 }
-
-//() => getDataFromServer()

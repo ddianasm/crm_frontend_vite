@@ -1,6 +1,5 @@
 import { ProductType } from "@/contexts/ProductContext"
 import { makeAutoObservable } from "mobx"
-import { initialProducts } from "@/store/initalTableData"
 
 class TableStore {
     rows: ProductType[] = []
@@ -22,6 +21,11 @@ class TableStore {
 
     setRows(rows: ProductType[]) {
         this.rows = rows
+    }
+
+    clearData() {
+        this.rows = []
+        this.selectedRows = []
     }
 
     toggleAllSelectedRows() {

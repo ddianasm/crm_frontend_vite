@@ -1,5 +1,16 @@
-export const NavigationButton = () => {
+type TNavigationButton = {
+    onClick: () => void;
+    children: JSX.Element;
+}
+
+export const NavigationButton: React.FC<TNavigationButton> = ({ onClick, children, ...props }) => {
     return (
-        <button></button>
+        <button
+            {...props}
+            className='flex justify-center items-center p-lg_p gap-sm_gap rounded-sm_radius cursor-pointer bg-[#e0e0e0]'
+            onClick={onClick}
+        >
+            {children}
+        </button>
     )
 }

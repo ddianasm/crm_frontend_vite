@@ -4,13 +4,24 @@ type AuthDataType = {
   username: string;
   password: string;
 };
+
+type TAddProduct = {
+  name: string,
+  amount: number,
+  price: number,
+  customer: string,
+  email: string,
+  phone: string,
+  status: string
+}
 export const serverRequests = {
   sendSignUpDataAsync: async (data: AuthDataType) =>
     mainInstance.post("/sign_up", data),
   sendSignInDataAsync: async (data: AuthDataType) =>
     mainInstance.post("/sign_in", data),
   checkAuthAsync: async () => await mainInstance.get("/auth"),
-  addProduct: async (data: { name: string, amount: number, price: number, customer: string, email: string, phone: string, status: string }) =>
+  logout: async () => await mainInstance.get("/logout"),
+  addProduct: async (data: TAddProduct) =>
     mainInstance.post('/add_product', data),
   deleteProducts: async (data: number[]) =>
     mainInstance.post('/products/delete', data),

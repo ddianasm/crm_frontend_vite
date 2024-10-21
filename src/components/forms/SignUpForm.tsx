@@ -1,10 +1,9 @@
 'use client'
-import { useState, useContext } from "react"
-import { useNavigate } from "react-router-dom";
+import { useState } from "react"
 import { Logo } from '@/components/logo/Logo';
 import { AuthButton } from '@/components/buttons/auth_button/AuthButton';
 import { serverRequests } from "@/API/server.requests";
-import { IsAuthContext } from "@/App";
+import { UserState } from '@/store/UserState';
 
 type signUpFormPropsType = {
     setCurrentForm: React.Dispatch<React.SetStateAction<'signUp' | 'signIn'>>;
@@ -12,16 +11,13 @@ type signUpFormPropsType = {
 
 export const SignUpForm: React.FC<signUpFormPropsType> = ({ setCurrentForm }) => {
     const [signUpData, setSignUpData] = useState<{ username: string; password: string; }>({ username: '', password: '' })
-    const IsAuthContextCheck = useContext(IsAuthContext)
-
-    const navigate = useNavigate();
 
     const handleAuthRequest = () => {
         serverRequests.sendSignUpDataAsync(signUpData)
             .then(response => {
                 if (response.status === 200) {
-                    IsAuthContextCheck.dispatch({ type: 'isAuth' });
-                    navigate('/');
+                    UserState.setUser(response.data.user)
+                    console.log(UserState.user)
                 }
             })
             .catch(error => {
