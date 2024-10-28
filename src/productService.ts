@@ -13,12 +13,10 @@ type TSendProductData = {
 };
 
 export const getProducts = () => {
-    serverRequests.getUserProducts()
+    serverRequests.getProducts()
         .then(response => {
             if (response.data) {
                 TableState.setRows(response.data);
-            } else {
-                console.log('Дані не отримані.');
             }
         })
         .catch(error => {
@@ -30,10 +28,7 @@ export const addProduct = (product: TSendProductData) => {
     serverRequests.addProduct(product)
         .then(response => {
             if (response.status === 200) {
-                console.log('товар додано в бд');
                 getProducts()
-            } else {
-                console.log('товар не додано в бд');
             }
         })
         .catch(error => {
@@ -45,10 +40,7 @@ export const deleteProducts = (products: number[]) => {
     serverRequests.deleteProducts(products)
         .then(response => {
             if (response.status === 200) {
-                console.log('Products deleted successfully');
                 getProducts()
-            } else {
-                console.log('Product not deleted');
             }
         })
         .catch(error => {

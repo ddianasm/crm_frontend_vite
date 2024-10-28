@@ -1,8 +1,19 @@
-import { ProductType } from "@/contexts/ProductContext"
 import { makeAutoObservable } from "mobx"
 
+export type TProduct = {
+    id: number,
+    name: string,
+    amount: number,
+    price: number,
+    customer: string,
+    email: string,
+    phone: string,
+    date: string,
+    status: string
+}
+
 class TableStore {
-    rows: ProductType[] = []
+    rows: TProduct[] = []
     selectedRows: number[] = []
 
     constructor() {
@@ -19,7 +30,7 @@ class TableStore {
         )
     }
 
-    setRows(rows: ProductType[]) {
+    setRows(rows: TProduct[]) {
         this.rows = rows
     }
 

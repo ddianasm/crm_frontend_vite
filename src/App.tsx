@@ -1,8 +1,7 @@
-import React, { createContext, useReducer, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Router } from "@/router/router"
 import { serverRequests } from '@/API/server.requests';
-import { authReducer } from '@/authReducer';
-import './global.css'
+import '@/global.css'
 import { UserState } from "@/store/UserState";
 
 
@@ -10,14 +9,10 @@ export const App = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        serverRequests.checkAuthAsync()
+        serverRequests.checkAuth()
             .then(response => {
                 if (response.status === 200) {
-                    UserState.setUser(response.data.user)
-                    console.log(response.data.user);
-                } else {
-                    console.log('User is not authorised');
-                    console.log(response.data.user);
+                    UserState.setUser(response.data.username)
                 }
             })
             .catch(error => {
@@ -33,5 +28,4 @@ export const App = () => {
             <Router />
         )
     }
-
 }

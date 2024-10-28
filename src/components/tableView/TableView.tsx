@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { TableState } from "@/store/TableState";
+import { TableState, TProduct } from "@/store/TableState";
 import cn from "classnames"
 import { observer } from "mobx-react-lite";
 import { IoCheckmarkSharp } from "react-icons/io5";
-import { ProductType } from "@/contexts/ProductContext"
 import { IoAdd } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
 import { AddProductModal } from "@/components/modals/AddProductModal"
@@ -17,18 +16,27 @@ import { deleteProducts } from "@/productService";
 type TAddProductModalProps = {
     setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
+type TDivProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+type TLabelProps = React.DetailedHTMLProps<React.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
+type TCheckBoxProps = {
+    className?: string;
+    rowId?: number;
+    condition: boolean;
+    handler: () => void;
+}
+type TRowCheckBox = {
+    rowId: number
+}
 
 export const TableView = observer(() => {
     const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false)
     const [columns, setColumns] = useState<string[]>([]);
 
     const getColumns = () => {
-        serverRequests.getColumns()
+        serverRequests.getProductColumns()
             .then(response => {
-                if (response.data) {
-                    setColumns(response.data)
-                } else {
-                    console.log('Дані не отримані.');
+                if (response.data.columns) {
+                    setColumns(response.data.columns)
                 }
             })
             .catch(error => {
@@ -59,11 +67,11 @@ export const TableView = observer(() => {
                             <RowCheckBox rowId={row.id} />
                             {columns.filter(column => column !== 'status').map(column => (
                                 <Column key={column} className="text-dark">
-                                    {(row[column as keyof ProductType])}
+                                    {(row[column as keyof TProduct])}
                                 </Column>
                             ))}
                             <Column key={'status'}>
-                                <StatusButton className={`bg-[#EAF8F0] text-[#70C68E]`} onClick={() => console.log('буде функція')}>{row.status as EProductStatus}</StatusButton>
+                                <StatusButton className={`bg-[#EAF8F0] text-[#70C68E]`}>{row.status as EProductStatus}</StatusButton>
                             </Column>
                         </Row>
                     )
@@ -76,22 +84,12 @@ export const TableView = observer(() => {
     )
 })
 
-type divPropsType = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-type labelPropsType = React.DetailedHTMLProps<React.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
-type CheckBoxPropsType = {
-    className?: string;
-    rowId?: number;
-    condition: boolean;
-    handler: () => void;
-}
-type RowCheckBoxType = {
-    rowId: number
-}
-
-
-const TableContainer: React.FC<divPropsType> = ({ children, className, ...props }) => {
+const TableContainer: React.FC<TDivProps> = ({ children, className, ...props }) => {
     return (
-        <div className={cn("table border-collapse w-full", className)} {...props}>
+        <div
+            {...props}
+            className={cn("table border-collapse w-full", className)}
+        >
             {children}
         </div>
     )
@@ -100,25 +98,33 @@ const TableContainer: React.FC<divPropsType> = ({ children, className, ...props 
 const TableUtilities: React.FC<TAddProductModalProps> = observer(({ setShowAddProductModal }) => {
     const handleDeleteClick = () => {
         if (TableState.selectedRows.length !== 0) {
-            console.log('delete');
             deleteProducts(TableState.selectedRows)
         }
     }
     return (
         <div className='flex flex-row justify-between items-center p-sm_p'>
             <div className='text-xl_text text-dark'>Products <span className='text-md_text text-gray'>({TableState.rows.length})</span></div>
-            {true &&
-                <div className='flex flex-row gap-lg_gap'>
-                    <ProductActionButton className="bg-primary" onClick={() => setShowAddProductModal(true)} icon={<IoAdd className='text-light text-[20px]' />}>Add</ProductActionButton>
-                    <ProductActionButton className="bg-gray" onClick={handleDeleteClick} icon={<AiOutlineDelete className='text-light text-[20px]' />}>Delete</ProductActionButton>
-                </div>
-            }
+            <div className='flex flex-row gap-lg_gap'>
+                <ProductActionButton
+                    className="bg-primary"
+                    onClick={() => setShowAddProductModal(true)}
+                    icon={<IoAdd className='text-light text-[20px]' />}
+                >
+                    Add
+                </ProductActionButton>
+                <ProductActionButton
+                    className="bg-gray"
+                    onClick={handleDeleteClick}
+                    icon={<AiOutlineDelete className='text-light text-[20px]' />}
+                >
+                    Delete
+                </ProductActionButton>
+            </div>
         </div>
     )
 })
 
-
-const HeaderRowCheckBox: React.FC<labelPropsType> = observer((props) => {
+const HeaderRowCheckBox: React.FC<TLabelProps> = observer((props) => {
     return (
         <CheckBox
             {...props}
@@ -128,7 +134,7 @@ const HeaderRowCheckBox: React.FC<labelPropsType> = observer((props) => {
     )
 })
 
-const RowCheckBox: React.FC<RowCheckBoxType> = observer(({ rowId, ...props }) => {
+const RowCheckBox: React.FC<TRowCheckBox> = observer(({ rowId, ...props }) => {
     return (
         <CheckBox
             {...props}
@@ -139,7 +145,7 @@ const RowCheckBox: React.FC<RowCheckBoxType> = observer(({ rowId, ...props }) =>
     )
 })
 
-const CheckBox: React.FC<CheckBoxPropsType> = observer(({ className, rowId, condition, handler, ...props }) => {
+const CheckBox: React.FC<TCheckBoxProps> = observer(({ className, rowId, condition, handler, ...props }) => {
     return (
         <label
             {...props}
@@ -162,26 +168,44 @@ const CheckBox: React.FC<CheckBoxPropsType> = observer(({ className, rowId, cond
     )
 })
 
-
-const HeaderRow: React.FC<divPropsType> = ({ children, className, ...props }) => {
+const HeaderRow: React.FC<TDivProps> = ({ children, className, ...props }) => {
     return (
-        <div className={cn("table-row text-gray text-md_text font-bold capitalize", className)} {...props}>
+        <div
+            {...props}
+            className={
+                cn(
+                    "table-row text-gray text-md_text font-bold capitalize",
+                    className
+                )}
+        >
             {children}
         </div>
     )
 }
 
-const Row: React.FC<divPropsType> = ({ children, className, ...props }) => {
+const Row: React.FC<TDivProps> = ({ children, className, ...props }) => {
     return (
-        <div className={cn("table-row text-dark border-t border-light_gray", className)} {...props}>
+        <div
+            {...props}
+            className={cn(
+                "table-row text-dark border-t border-light_gray",
+                className
+            )}
+        >
             {children}
         </div>
     )
 }
 
-const Column: React.FC<divPropsType> = ({ children, className, ...props }) => {
+const Column: React.FC<TDivProps> = ({ children, className, ...props }) => {
     return (
-        <div className={cn("table-cell px-xs_p py-xl_p text-center", className)} {...props}>
+        <div
+            {...props}
+            className={cn(
+                "table-cell px-xs_p py-xl_p text-center",
+                className
+            )}
+        >
             {children}
         </div>
     )

@@ -13,7 +13,7 @@ export const SignUpForm: React.FC<signUpFormPropsType> = ({ setCurrentForm }) =>
     const [signUpData, setSignUpData] = useState<{ username: string; password: string; }>({ username: '', password: '' })
 
     const handleAuthRequest = () => {
-        serverRequests.sendSignUpDataAsync(signUpData)
+        serverRequests.sendSignUpData(signUpData)
             .then(response => {
                 if (response.status === 200) {
                     UserState.setUser(response.data.user)

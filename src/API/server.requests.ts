@@ -1,6 +1,6 @@
 import { mainInstance } from "./instance";
 
-type AuthDataType = {
+type TAuthData = {
   username: string;
   password: string;
 };
@@ -15,16 +15,23 @@ type TAddProduct = {
   status: string
 }
 export const serverRequests = {
-  sendSignUpDataAsync: async (data: AuthDataType) =>
-    mainInstance.post("/sign_up", data),
-  sendSignInDataAsync: async (data: AuthDataType) =>
-    mainInstance.post("/sign_in", data),
-  checkAuthAsync: async () => await mainInstance.get("/auth"),
+  sendSignUpData: async (data: TAuthData) =>
+    mainInstance.post("/sign-up", data),
+
+  sendSignInData: async (data: TAuthData) =>
+    mainInstance.post("/sign-in", data),
+
+  checkAuth: async () => await mainInstance.get("/auth"),
+
   logout: async () => await mainInstance.get("/logout"),
+
   addProduct: async (data: TAddProduct) =>
-    mainInstance.post('/add_product', data),
+    mainInstance.post('/add-product', data),
+
   deleteProducts: async (data: number[]) =>
-    mainInstance.post('/products/delete', data),
-  getUserProducts: async () => await mainInstance.get('/get_products'),
-  getColumns: async () => await mainInstance.get('/columns')
+    mainInstance.post('/delete-products', data),
+
+  getProducts: async () => await mainInstance.get('/products'),
+
+  getProductColumns: async () => await mainInstance.get('/columns')
 };

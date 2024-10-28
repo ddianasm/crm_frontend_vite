@@ -13,7 +13,7 @@ export const SignInForm: React.FC<signInFormPropsType> = ({ setCurrentForm }) =>
     const [signInData, setSignInData] = useState<{ username: string; password: string; }>({ username: '', password: '' })
 
     const handleAuthRequest = () => {
-        serverRequests.sendSignInDataAsync(signInData)
+        serverRequests.sendSignInData(signInData)
             .then(response => {
                 if (response.status === 200) {
                     console.log(response.data.user);

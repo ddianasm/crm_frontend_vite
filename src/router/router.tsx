@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { MainPage } from "@/pages/MainPage";
-import { IsAuthContext } from '@/App'
 import { routes } from "@/router/routes";
 import { AuthPage } from "@/pages/AuthPage";
 import { observer } from "mobx-react-lite";

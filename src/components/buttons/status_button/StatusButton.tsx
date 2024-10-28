@@ -2,7 +2,7 @@ import cn from "classnames"
 import { EProductStatus } from "@/components/modals/AddProductModal"
 type TStatusButton = {
     className: string;
-    onClick: () => void;
+    onClick?: () => void;
     children: EProductStatus;
 }
 

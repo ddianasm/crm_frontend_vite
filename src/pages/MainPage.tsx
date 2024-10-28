@@ -7,7 +7,6 @@ export const MainPage = observer(() => {
     return (
         <div className="flex flex-row w-screen h-screen relative">
             <LeftPanel />
-            {/* <TableView /> */}
             <PageContainer>
                 <TableView />
             </PageContainer >
@@ -19,7 +18,10 @@ type divPropsType = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>
 
 const PageContainer: React.FC<divPropsType> = ({ children, className, ...props }) => {
     return (
-        <div className={cn("flex flex-col gap-[40px] justify-center items-center w-[95%] mx-[40px]", className)} {...props}>
+        <div
+            {...props}
+            className={cn("flex flex-col gap-[40px] justify-center items-center w-[95%] mx-[40px]", className)}
+        >
             {children}
         </div>
     )
