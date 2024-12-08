@@ -2,7 +2,10 @@ export const routes = {
   main: {
     route: "/",
   },
-  auth: {
-    route: 'auth'
+  signUp: {
+    route: 'sign-up',
+  },
+  signIn: {
+    route: 'sign-in'
   }
 };

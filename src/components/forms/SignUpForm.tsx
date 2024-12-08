@@ -4,13 +4,14 @@ import { Logo } from '@/components/logo/Logo';
 import { AuthButton } from '@/components/buttons/auth_button/AuthButton';
 import { serverRequests } from "@/API/server.requests";
 import { UserState } from '@/store/UserState';
+import { useNavigate } from 'react-router-dom';
 
-type signUpFormPropsType = {
-    setCurrentForm: React.Dispatch<React.SetStateAction<'signUp' | 'signIn'>>;
-}
+export type signUpData = { username: string; password: string; }
 
-export const SignUpForm: React.FC<signUpFormPropsType> = ({ setCurrentForm }) => {
-    const [signUpData, setSignUpData] = useState<{ username: string; password: string; }>({ username: '', password: '' })
+export const SignUpForm = () => {
+    const navigate = useNavigate();
+
+    const [signUpData, setSignUpData] = useState<signUpData>({ username: '', password: '' })
 
     const handleAuthRequest = () => {
         serverRequests.sendSignUpData(signUpData)
@@ -24,6 +25,10 @@ export const SignUpForm: React.FC<signUpFormPropsType> = ({ setCurrentForm }) =>
                 console.error('Error checking authorization:', error);
             })
     }
+
+    const goToSignInPage = () => {
+        navigate('/sign-in');
+    };
 
     return (
         <div className='flex flex-col items-center justify-center w-[30%] gap-lg_gap'>
@@ -50,7 +55,7 @@ export const SignUpForm: React.FC<signUpFormPropsType> = ({ setCurrentForm }) =>
                             required />
                     </div>
                     <AuthButton className='w-full h-[50px] text-light hover:bg-primary2 bg-primary' onClick={handleAuthRequest}>Sign Up</AuthButton>
-                    <AuthButton className='w-full h-[50px] text-light hover:bg-gray bg-light_gray' onClick={() => setCurrentForm('signIn')}>Sign In</AuthButton>
+                    <AuthButton className='w-full h-[50px] text-light hover:bg-gray bg-light_gray' onClick={goToSignInPage}>Sign In</AuthButton>
                 </div>
             </div>
         </div>

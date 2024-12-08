@@ -16,22 +16,22 @@ type TAddProduct = {
 }
 export const serverRequests = {
   sendSignUpData: async (data: TAuthData) =>
-    mainInstance.post("/sign-up", data),
+    mainInstance.post("/auth/signup", data),
 
   sendSignInData: async (data: TAuthData) =>
-    mainInstance.post("/sign-in", data),
+    mainInstance.post("/auth/signin", data),
 
   checkAuth: async () => await mainInstance.get("/auth"),
 
-  logout: async () => await mainInstance.get("/logout"),
+  logout: async () => await mainInstance.get("/auth/logout"),
 
   addProduct: async (data: TAddProduct) =>
-    mainInstance.post('/add-product', data),
+    mainInstance.post('/products/add', data),
 
   deleteProducts: async (data: number[]) =>
-    mainInstance.post('/delete-products', data),
+    mainInstance.post('/products/delete', data),
 
-  getProducts: async () => await mainInstance.get('/products'),
+  getProducts: async () => await mainInstance.get('/products/get'),
 
   getProductColumns: async () => await mainInstance.get('/columns')
 };

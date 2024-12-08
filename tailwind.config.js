@@ -12,23 +12,24 @@ module.exports = {
         light_gray_blue: "var(--light_gray_blue)",
         primary: "var(--primary)",
         primary2: "var(--primary2)",
+        error: "var(--error)",
       },
       fontSize: {
         sm_text: "var(--sm_text)",
         md_text: "var(--md_text)",
         lg_text: "var(--lg_text)",
         xl_text: "var(--xl_text)",
-        xxl_text: "var(--xxl_text)"
+        xxl_text: "var(--xxl_text)",
       },
       padding: {
         xl_p: "var(--xl_p)",
         lg_p: "var(--lg_p)",
         md_p: "var(--md_p)",
         sm_p: "var(--sm_p)",
-        xs_p: "var(--xs_p)"
+        xs_p: "var(--xs_p)",
       },
       margin: {
-        xl_m: "var(--xl_m)"
+        xl_m: "var(--xl_m)",
       },
       gap: {
         xl_gap: "var(--xl_gap)",

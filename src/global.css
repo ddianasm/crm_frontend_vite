@@ -15,6 +15,7 @@ body {
   --light_gray: #d1d1d1;
   --gray: #9e9e9e;
   --light_gray_blue: #f1f4fa;
+  --error: #ef4444;
 
   /* Font Size */
   --sm_text: 14px;
