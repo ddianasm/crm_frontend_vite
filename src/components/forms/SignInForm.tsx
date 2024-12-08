@@ -4,6 +4,7 @@ import { AuthButton } from '@/components/buttons/auth_button/AuthButton';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import { z } from 'zod';
+import { FormErrorMessage } from './form_error_message/FormErrorMessage';
 
 const schema = z.object({
     username: z.string().min(2, 'Username must be at least 2 characters').max(20, 'Username must be at most 20 characters'),
@@ -12,17 +13,16 @@ const schema = z.object({
 
 const validate = (values: Record<string, any>) => {
     try {
-        schema.parse(values); // Перевіряємо дані форми
-        return {}; // Якщо все коректно, повертаємо пустий об'єкт помилок
+        schema.parse(values); // Перевірка даних форми
+        return {}; // Якщо все коректно, повертається пустий об'єкт помилок
     } catch (error: any) {
         const errors: Record<string, string> = {};
         error.errors.forEach((err: any) => {
-            errors[err.path[0]] = err.message; // Перетворюємо помилки Zod у формат Formik
+            errors[err.path[0]] = err.message; // Перетворення помилки Zod у формат Formik
         });
         return errors;
     }
 };
-
 
 export const SignInForm = () => {
     const navigate = useNavigate();
@@ -69,7 +69,7 @@ export const SignInForm = () => {
                                     {...formik.getFieldProps('username')}
                                 />
                                 {formik.touched.username && formik.errors.username ? (
-                                    <div className='text-sm_text text-error'>{formik.errors.username}</div>
+                                    <FormErrorMessage>{formik.errors.username}</FormErrorMessage>
                                 ) : null}
                             </div>
                             <div className='relative w-full'>
@@ -81,7 +81,7 @@ export const SignInForm = () => {
                                     {...formik.getFieldProps('password')}
                                 />
                                 {formik.touched.password && formik.errors.password ? (
-                                    <div className='text-sm_text text-error'>{formik.errors.password}</div>
+                                    <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
                                 ) : null}
                             </div>
                             <AuthButton type="submit" className='w-full h-[50px] text-light hover:bg-primary2 bg-primary'>Sign In</AuthButton>
