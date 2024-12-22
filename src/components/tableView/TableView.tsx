@@ -33,15 +33,16 @@ export const TableView = observer(() => {
     const [columns, setColumns] = useState<string[]>([]);
 
     const getColumns = () => {
-        serverRequests.getProductColumns()
-            .then(response => {
-                if (response.data.columns) {
-                    setColumns(response.data.columns)
-                }
-            })
-            .catch(error => {
-                console.error('Error getting columns:', error);
-            })
+        // serverRequests.getProductColumns()
+        //     .then(response => {
+        //         if (response.data.columns) {
+        //             setColumns(response.data.columns)
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error getting columns:', error);
+        //     })
+        setColumns(['id', 'name', 'amount', 'price', 'customer', 'email', 'phone', 'date', 'status'])
     }
 
     useEffect(() => {

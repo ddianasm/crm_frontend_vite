@@ -1,28 +1,13 @@
 'use client'
+import { useState } from "react"
 import { Logo } from '@/components/logo/Logo';
 import { AuthButton } from '@/components/buttons/auth_button/AuthButton';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
-import { z } from 'zod';
-import { FormErrorMessage } from './form_error_message/FormErrorMessage';
+import { FormErrorMessage } from '@/components/forms/form_error_message/FormErrorMessage';
+import { validateAuthForm } from './authValidation';
 
-const schema = z.object({
-    username: z.string().min(2, 'Username must be at least 2 characters').max(20, 'Username must be at most 20 characters'),
-    password: z.string().min(8, 'Password must be at least 8 characters').max(20, 'Password must be at most 20 characters'),
-});
-
-const validate = (values: Record<string, any>) => {
-    try {
-        schema.parse(values); // Перевірка даних форми
-        return {}; // Якщо все коректно, повертається пустий об'єкт помилок
-    } catch (error: any) {
-        const errors: Record<string, string> = {};
-        error.errors.forEach((err: any) => {
-            errors[err.path[0]] = err.message; // Перетворення помилки Zod у формат Formik
-        });
-        return errors;
-    }
-};
+export type signInData = { username: string; password: string; }
 
 export const SignInForm = () => {
     const navigate = useNavigate();
@@ -53,13 +38,14 @@ export const SignInForm = () => {
                 <div className='text-[18px]'>Authorisation</div>
                 <Formik
                     initialValues={{ username: "", password: "" }}
-                    validate={validate}
+                    validate={validateAuthForm}
                     onSubmit={(values) => console.log(values)}
                 >
                     {formik => (
                         <form
                             onSubmit={formik.handleSubmit}
-                            className='flex flex-col items-center justify-center w-full gap-md_gap'>
+                            className='flex flex-col items-center justify-center w-full gap-md_gap'
+                        >
                             <div className='relative w-full flex flex-col gap-xs_gap'>
                                 <input
                                     id="username"

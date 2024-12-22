@@ -3,7 +3,7 @@ import { MainPage } from "@/pages/MainPage";
 import { routes } from "@/router/routes";
 import { observer } from "mobx-react-lite";
 import { UserState } from "@/store/UserState";
-import { SignUpPage } from "@/pages/SignupPage";
+import { SignUpPage } from "@/pages/SignUpPage";
 import { SignInPage } from "@/pages/SignInPage";
 
 

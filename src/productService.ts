@@ -2,15 +2,15 @@ import { serverRequests } from "@/API/server.requests";
 import { TableState } from "@/store/TableState";
 import { EProductStatus } from "./components/modals/AddProductModal";
 
-type TSendProductData = {
-    name: string;
-    amount: number;
-    price: number;
-    customer: string;
-    email: string;
-    phone: string;
-    status: EProductStatus;
-};
+// type TSendProductData = {
+//     name: string;
+//     amount: number;
+//     price: number;
+//     customer: string;
+//     email: string;
+//     phone: string;
+//     status: EProductStatus;
+// };
 
 export const getProducts = () => {
     serverRequests.getProducts()
@@ -24,11 +24,13 @@ export const getProducts = () => {
         })
 }
 
-export const addProduct = (product: TSendProductData) => {
+export const addProduct = (product: any) => {
+    console.log(product, 'product');
     serverRequests.addProduct(product)
         .then(response => {
             if (response.status === 200) {
                 getProducts()
+                console.log('add product func');
             }
         })
         .catch(error => {
