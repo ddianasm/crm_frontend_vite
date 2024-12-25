@@ -1,12 +1,8 @@
 import cn from "classnames"
-import { EProductStatus } from "@/components/modals/AddProductModal"
-type TStatusButton = {
-    className: string;
-    onClick?: () => void;
-    children: EProductStatus;
-}
+import { EProductStatus } from "@/components/modals/addProductModal/AddProductModal"
+type TStatusButton = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
-export const StatusButton: React.FC<TStatusButton> = ({ className, onClick, children }) => {
+export const StatusButton: React.FC<TStatusButton> = ({ className, onClick, children, ...props }) => {
     const getStatusClasses = () => {
         if (children === EProductStatus.NEW) {
             return 'bg-[#EAF8F0] text-[#70C68E]'
@@ -18,7 +14,9 @@ export const StatusButton: React.FC<TStatusButton> = ({ className, onClick, chil
     }
 
     return (
-        <button className={cn("rounded-sm_radius p-sm_p font-bold cursor-pointer capitalize", className, getStatusClasses())} onClick={onClick} >
+        <button
+            {...props}
+            className={cn("rounded-sm_radius p-sm_p font-bold cursor-pointer capitalize", className, getStatusClasses())} onClick={onClick} >
             {children}
         </button >
     )

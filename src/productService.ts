@@ -1,6 +1,6 @@
 import { serverRequests } from "@/API/server.requests";
 import { TableState } from "@/store/TableState";
-import { EProductStatus } from "./components/modals/AddProductModal";
+import { EProductStatus } from "./components/modals/addProductModal/AddProductModal";
 
 // type TSendProductData = {
 //     name: string;

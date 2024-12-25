@@ -1,11 +1,12 @@
 'use client'
-import { useState } from "react"
 import { Logo } from '@/components/logo/Logo';
 import { AuthButton } from '@/components/buttons/auth_button/AuthButton';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
-import { FormErrorMessage } from '@/components/forms/form_error_message/FormErrorMessage';
-import { validateAuthForm } from './authValidation';
+import { FormErrorMessage } from '@/components/errorMessage/ErrorMessage';
+import { validateAuthForm } from '@/utils/authValidation';
+import { serverRequests } from "@/API/server.requests";
+import { UserState } from "@/store/UserState";
 
 export type signInData = { username: string; password: string; }
 
@@ -16,20 +17,20 @@ export const SignInForm = () => {
         navigate('/sign-up');
     };
 
-    // const handleAuthRequest = () => {
-    //     serverRequests.sendSignInData(signInData)
-    //         .then(response => {
-    //             if (response.status === 200) {
-    //                 console.log(response.data.user);
-    //                 UserState.setUser(response.data.user)
-    //             } else {
-    //                 console.log('User is not authorized');
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Error checking authorization:', error);
-    //         })
-    // }
+    const handleAuthRequest = (data: signInData) => {
+        serverRequests.sendSignInData(data)
+            .then(response => {
+                if (response.status === 200) {
+                    console.log(response.data.username);
+                    UserState.setUser(response.data.username)
+                } else {
+                    console.log('User is not authorized');
+                }
+            })
+            .catch(error => {
+                console.error('Error checking authorization:', error);
+            })
+    }
 
     return (
         <div className='flex flex-col items-center justify-center w-[30%] gap-lg_gap'>
@@ -39,7 +40,7 @@ export const SignInForm = () => {
                 <Formik
                     initialValues={{ username: "", password: "" }}
                     validate={validateAuthForm}
-                    onSubmit={(values) => console.log(values)}
+                    onSubmit={(values) => handleAuthRequest(values)}
                 >
                     {formik => (
                         <form
@@ -50,7 +51,7 @@ export const SignInForm = () => {
                                 <input
                                     id="username"
                                     type="text"
-                                    placeholder='username'
+                                    placeholder='Username'
                                     className='h-[50px] w-full text-dark text-md_text bg-transparent border border-1 border-solid border-gray rounded-sm_radius outline-none p-md_p'
                                     {...formik.getFieldProps('username')}
                                 />
@@ -62,7 +63,7 @@ export const SignInForm = () => {
                                 <input
                                     id="password"
                                     type="password"
-                                    placeholder='password'
+                                    placeholder='Password'
                                     className='h-[50px] w-full text-dark text-md_text bg-transparent border border-1 border-solid border-gray rounded-sm_radius outline-none p-md_p'
                                     {...formik.getFieldProps('password')}
                                 />

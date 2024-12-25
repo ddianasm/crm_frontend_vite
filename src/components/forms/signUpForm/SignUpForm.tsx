@@ -1,20 +1,17 @@
 'use client'
-import { useState } from "react"
 import { Logo } from '@/components/logo/Logo';
 import { AuthButton } from '@/components/buttons/auth_button/AuthButton';
 import { serverRequests } from "@/API/server.requests";
 import { UserState } from '@/store/UserState';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
-import { validateAuthForm } from './authValidation';
-import { FormErrorMessage } from '@/components/forms/form_error_message/FormErrorMessage';
+import { validateAuthForm } from "@/utils/authValidation";
+import { FormErrorMessage } from '@/components/errorMessage/ErrorMessage';
 
 export type signUpData = { username: string; password: string; }
 
 export const SignUpForm = () => {
     const navigate = useNavigate();
-
-    // const [signUpData, setSignUpData] = useState<signUpData>({ username: '', password: '' })
 
     const handleAuthRequest = (data: signUpData) => {
         serverRequests.sendSignUpData(data)
@@ -53,7 +50,7 @@ export const SignUpForm = () => {
                                 <input
                                     id="username"
                                     type="text"
-                                    placeholder='username'
+                                    placeholder='Username'
                                     className='h-[50px] w-full text-dark text-md_text bg-transparent border border-1 border-solid border-gray rounded-sm_radius outline-none p-md_p'
                                     {...formik.getFieldProps('username')}
                                 />
@@ -65,7 +62,7 @@ export const SignUpForm = () => {
                                 <input
                                     id="password"
                                     type="password"
-                                    placeholder='password'
+                                    placeholder='Password'
                                     className='h-[50px] w-full text-dark text-md_text bg-transparent border border-1 border-solid border-gray rounded-sm_radius outline-none p-md_p'
                                     {...formik.getFieldProps('password')}
                                 />

@@ -5,11 +5,11 @@ import { observer } from "mobx-react-lite";
 import { IoCheckmarkSharp } from "react-icons/io5";
 import { IoAdd } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
-import { AddProductModal } from "@/components/modals/AddProductModal"
+import { AddProductModal } from "@/components/modals/addProductModal/AddProductModal"
 import { serverRequests } from "@/API/server.requests"
 import { getProducts } from "@/productService";
 import { StatusButton } from "../buttons/status_button/StatusButton";
-import { EProductStatus } from "@/components/modals/AddProductModal";
+import { EProductStatus } from "@/components/modals/addProductModal/AddProductModal";
 import { ProductActionButton } from "../buttons/product_action_button/ProductActionButton";
 import { deleteProducts } from "@/productService";
 
