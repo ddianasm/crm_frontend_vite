@@ -4,7 +4,7 @@ import { StatusButton } from "@/components/buttons/status_button/StatusButton";
 import { ModalActionButton } from "@/components/buttons/modal_action_button/ModalActionButton";
 import { addProduct } from "@/service/productService";
 import { Formik, FormikProps } from 'formik';
-import { FormErrorMessage } from '@/components/errorMessage/ErrorMessage';
+import { FormErrorMessage } from '@/components/formErrorMessage/FormErrorMessage';
 import { productSchema } from "@/schemas/product";
 import { validateForm } from "@/utils/formValidation";
 
@@ -15,6 +15,7 @@ export enum EProductStatus {
 }
 type TAddProductModalPropsType = {
     setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
+    handleAddProduct: (values: TProductData) => Promise<void>;
 }
 type TProductData = {
     name: string;
@@ -45,16 +46,7 @@ const initialValues = {
     status: EProductStatus.NEW
 };
 
-export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAddProductModal }) => {
-
-    const handleAddProduct = async (values: TProductData) => {
-        try {
-            await addProduct(values);
-            setShowAddProductModal(false);
-        } catch (error) {
-            console.error('Error adding product:', error);
-        }
-    };
+export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAddProductModal, handleAddProduct }) => {
 
     return (
         <div className="flex justify-center items-center w-screen h-screen fixed inset-0 bg-black bg-opacity-50">

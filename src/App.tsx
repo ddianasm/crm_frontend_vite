@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Router } from "@/router/router"
 import { serverRequests } from '@/API/server.requests';
 import '@/global.css'
 import { UserState } from "@/store/UserState";
 
+export const ErrorMessageContext = createContext<{ errorMessage: string; setErrorMessage: (message: string) => void } | null>(null);
+
+
 
 export const App = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [errorMessage, setErrorMessage] = useState<string>('Error Message Text');
 
     useEffect(() => {
         serverRequests.checkAuth()
@@ -25,7 +29,9 @@ export const App = () => {
 
     if (!isLoading) {
         return (
-            <Router />
+            <ErrorMessageContext.Provider value={{ errorMessage, setErrorMessage }}>
+                < Router />
+            </ErrorMessageContext.Provider >
         )
     }
 }

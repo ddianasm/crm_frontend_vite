@@ -25,9 +25,11 @@ type TCheckBoxProps = {
 type TRowCheckBox = {
     rowId: number
 }
+type TableViewProps = {
+    setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-export const TableView = observer(() => {
-    const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false);
+export const TableView: React.FC<TableViewProps> = observer(({ setShowAddProductModal }) => {
 
     const columns = TableState.getColumns();
 
@@ -63,9 +65,6 @@ export const TableView = observer(() => {
                     </Row>
                 ))}
             </TableContainer>
-            {showAddProductModal && (
-                <AddProductModal setShowAddProductModal={setShowAddProductModal} />
-            )}
         </div>
     );
 });
@@ -94,14 +93,14 @@ const TableUtilities: React.FC<TAddProductModalProps> = observer(({ setShowAddPr
                 <ProductActionButton
                     className="bg-primary"
                     onClick={() => setShowAddProductModal(true)}
-                    icon={<IoAdd className='text-light text-[20px]' />}
+                    icon={<IoAdd className='text-light w-[20px] h-[20px]' />}
                 >
                     Add
                 </ProductActionButton>
                 <ProductActionButton
                     className="bg-gray"
                     onClick={handleDeleteClick}
-                    icon={<AiOutlineDelete className='text-light text-[20px]' />}
+                    icon={<AiOutlineDelete className='text-light w-[20px] h-[20px]' />}
                 >
                     Delete
                 </ProductActionButton>

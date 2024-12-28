@@ -3,7 +3,7 @@ import { Logo } from '@/components/logo/Logo';
 import { AuthButton } from '@/components/buttons/auth_button/AuthButton';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
-import { FormErrorMessage } from '@/components/errorMessage/ErrorMessage';
+import { FormErrorMessage } from '@/components/formErrorMessage/FormErrorMessage';
 import { validateForm } from '@/utils/formValidation';
 import { authSchema } from '@/schemas/auth';
 import { signUp } from '@/service/authService';
