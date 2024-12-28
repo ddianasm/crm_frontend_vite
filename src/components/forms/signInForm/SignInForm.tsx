@@ -4,11 +4,9 @@ import { AuthButton } from '@/components/buttons/auth_button/AuthButton';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import { FormErrorMessage } from '@/components/errorMessage/ErrorMessage';
-import { validateAuthForm } from '@/utils/authValidation';
-import { serverRequests } from "@/API/server.requests";
-import { UserState } from "@/store/UserState";
-
-export type signInData = { username: string; password: string; }
+import { authSchema } from '@/schemas/auth';
+import { validateForm } from '@/utils/formValidation';
+import { signIn } from '@/service/authService';
 
 export const SignInForm = () => {
     const navigate = useNavigate();
@@ -17,21 +15,6 @@ export const SignInForm = () => {
         navigate('/sign-up');
     };
 
-    const handleAuthRequest = (data: signInData) => {
-        serverRequests.sendSignInData(data)
-            .then(response => {
-                if (response.status === 200) {
-                    console.log(response.data.username);
-                    UserState.setUser(response.data.username)
-                } else {
-                    console.log('User is not authorized');
-                }
-            })
-            .catch(error => {
-                console.error('Error checking authorization:', error);
-            })
-    }
-
     return (
         <div className='flex flex-col items-center justify-center w-[30%] gap-lg_gap'>
             <Logo />
@@ -39,8 +22,8 @@ export const SignInForm = () => {
                 <div className='text-[18px]'>Authorisation</div>
                 <Formik
                     initialValues={{ username: "", password: "" }}
-                    validate={validateAuthForm}
-                    onSubmit={(values) => handleAuthRequest(values)}
+                    validate={(values) => validateForm(authSchema, values)}
+                    onSubmit={(values) => signIn(values)}
                 >
                     {formik => (
                         <form

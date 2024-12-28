@@ -23,6 +23,7 @@ class TableStore {
     get rowIdList() {
         return this.rows.map(row => row.id)
     }
+
     get allIsSelected() {
         if (this.rows.length === 0) return false;
         return this.rowIdList.every(id =>
@@ -31,7 +32,7 @@ class TableStore {
     }
 
     setRows(rows: TProduct[]) {
-        this.rows = rows
+        this.rows = rows;
     }
 
     clearData() {
@@ -44,6 +45,7 @@ class TableStore {
         if (!this.allIsSelected) this.selectedRows = this.rowIdList
         else this.selectedRows = []
     }
+
     toggleSelectedRows(id: number) {
         console.log(id);
         const idIsSelected = this.selectedRows.includes(id)
@@ -51,6 +53,12 @@ class TableStore {
             this.selectedRows = [...this.selectedRows, id]
         else
             this.selectedRows = this.selectedRows.filter(selectId => selectId !== id)
+    }
+
+    getColumns() {
+        return this.rows.length > 0
+            ? Object.keys(this.rows[0]).filter(key => key !== 'id')
+            : [];
     }
 }
 

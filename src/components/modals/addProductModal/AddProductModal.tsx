@@ -2,10 +2,11 @@ import React, { useState } from "react"
 import { IoCloseOutline } from "react-icons/io5";
 import { StatusButton } from "@/components/buttons/status_button/StatusButton";
 import { ModalActionButton } from "@/components/buttons/modal_action_button/ModalActionButton";
-import { addProduct } from "@/productService";
+import { addProduct } from "@/service/productService";
 import { Formik, FormikProps } from 'formik';
-import { validateProductForm } from "../../../utils/validation/productValidation";
 import { FormErrorMessage } from '@/components/errorMessage/ErrorMessage';
+import { productSchema } from "@/schemas/product";
+import { validateForm } from "@/utils/formValidation";
 
 export enum EProductStatus {
     NEW = 'new',
@@ -55,12 +56,11 @@ export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAd
         }
     };
 
-
     return (
         <div className="flex justify-center items-center w-screen h-screen fixed inset-0 bg-black bg-opacity-50">
             <Formik
                 initialValues={initialValues}
-                validate={validateProductForm}
+                validate={(values) => validateForm(productSchema, values)}
                 onSubmit={(values) => handleAddProduct(values)}
             >
                 {formik => (
@@ -83,7 +83,10 @@ export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAd
 
 // ModalHeader.tsx
 const ModalHeader: React.FC<TModalHeaderProps> = ({ onClick, ...props }) => (
-    <div className="flex flex-row w-full justify-between items-center" {...props}>
+    <div
+        {...props}
+        className="flex flex-row w-full justify-between items-center"
+    >
         <div className="text-xxl_text">Enter product details</div>
         <IoCloseOutline className="h-[30px] w-[30px] cursor-pointer" onClick={onClick} />
     </div>

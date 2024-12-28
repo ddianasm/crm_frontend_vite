@@ -6,12 +6,10 @@ import { IoCheckmarkSharp } from "react-icons/io5";
 import { IoAdd } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
 import { AddProductModal } from "@/components/modals/addProductModal/AddProductModal"
-import { serverRequests } from "@/API/server.requests"
-import { getProducts } from "@/productService";
+import { getProducts } from "@/service/productService";
 import { StatusButton } from "../buttons/status_button/StatusButton";
-import { EProductStatus } from "@/components/modals/addProductModal/AddProductModal";
 import { ProductActionButton } from "../buttons/product_action_button/ProductActionButton";
-import { deleteProducts } from "@/productService";
+import { deleteProducts } from "@/service/productService";
 
 type TAddProductModalProps = {
     setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,26 +27,13 @@ type TRowCheckBox = {
 }
 
 export const TableView = observer(() => {
-    const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false)
-    const [columns, setColumns] = useState<string[]>([]);
+    const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false);
 
-    const getColumns = () => {
-        // serverRequests.getProductColumns()
-        //     .then(response => {
-        //         if (response.data.columns) {
-        //             setColumns(response.data.columns)
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('Error getting columns:', error);
-        //     })
-        setColumns(['id', 'name', 'amount', 'price', 'customer', 'email', 'phone', 'date', 'status'])
-    }
+    const columns = TableState.getColumns();
 
     useEffect(() => {
-        getColumns()
-        getProducts()
-    }, [])
+        getProducts();
+    }, []);
 
     return (
         <div className="w-full p-xl_p rounded-sm_radius shadow-2xl">
@@ -56,34 +41,34 @@ export const TableView = observer(() => {
             <TableContainer>
                 <HeaderRow>
                     <HeaderRowCheckBox />
-                    {columns.map(column =>
-                        <Column key={column}>
-                            {column}
-                        </Column>
-                    )}
+                    {columns.map((column) => (
+                        <Column key={column}>{column}</Column>
+                    ))}
                 </HeaderRow>
-                {
-                    TableState.rows.map(row =>
-                        <Row key={row.id}>
-                            <RowCheckBox rowId={row.id} />
-                            {columns.filter(column => column !== 'status').map(column => (
+                {TableState.rows.map((row) => (
+                    <Row key={row.id}>
+                        <RowCheckBox rowId={row.id} />
+                        {columns
+                            .filter((column) => column !== "status")
+                            .map((column) => (
                                 <Column key={column} className="text-dark">
                                     {(row[column as keyof TProduct])}
                                 </Column>
                             ))}
-                            <Column key={'status'}>
-                                <StatusButton className={`bg-[#EAF8F0] text-[#70C68E]`}>{row.status as EProductStatus}</StatusButton>
-                            </Column>
-                        </Row>
-                    )
-                }
+                        <Column key={"status"}>
+                            <StatusButton className="bg-[#EAF8F0] text-[#70C68E]">
+                                {row.status}
+                            </StatusButton>
+                        </Column>
+                    </Row>
+                ))}
             </TableContainer>
-            {showAddProductModal &&
+            {showAddProductModal && (
                 <AddProductModal setShowAddProductModal={setShowAddProductModal} />
-            }
+            )}
         </div>
-    )
-})
+    );
+});
 
 const TableContainer: React.FC<TDivProps> = ({ children, className, ...props }) => {
     return (

@@ -1,6 +1,6 @@
 import { serverRequests } from "@/API/server.requests";
 import { TableState } from "@/store/TableState";
-import { EProductStatus } from "./components/modals/addProductModal/AddProductModal";
+import { EProductStatus } from "../components/modals/addProductModal/AddProductModal";
 
 // type TSendProductData = {
 //     name: string;
@@ -25,12 +25,10 @@ export const getProducts = () => {
 }
 
 export const addProduct = (product: any) => {
-    console.log(product, 'product');
     serverRequests.addProduct(product)
         .then(response => {
             if (response.status === 200) {
                 getProducts()
-                console.log('add product func');
             }
         })
         .catch(error => {

@@ -1,8 +1,11 @@
-import { productSchema } from '@/schemas/product';
+import { ZodSchema } from "zod";
 
-export const validateProductForm = (values: Record<string, any>) => {
+export const validateForm = <T extends Record<string, any>>(
+    schema: ZodSchema<T>,
+    values: T
+) => {
     try {
-        productSchema.parse(values); // Перевірка даних форми
+        schema.parse(values); // Перевірка даних форми за схемою
         return {}; // Якщо все коректно, повертається пустий об'єкт помилок
     } catch (error: any) {
         const errors: Record<string, string> = {};
