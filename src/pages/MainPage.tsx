@@ -5,8 +5,9 @@ import cn from "classnames"
 import { ErrorMesssage } from "@/components/errorMessage/ErrorMessage"
 import { AddProductModal } from "@/components/modals/addProductModal/AddProductModal"
 import { TableState } from "@/store/TableState"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { addProduct } from "@/service/productService"
+import { ErrorMessageContext } from "@/App"
 
 export enum EProductStatus {
     NEW = 'new',
@@ -25,30 +26,17 @@ type TProductData = {
 };
 
 export const MainPage = observer(() => {
-    const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false);
-
-    const handleAddProduct = async (values: TProductData) => {
-        try {
-            const result = await addProduct(values);
-            if (result.status = 200) {
-                setShowAddProductModal(false);
-            } else {
-
-            }
-        } catch (error) {
-            console.error('Error adding product:', error);
-        }
-    };
+    const context = useContext(ErrorMessageContext)!;
+    const { errorMessage } = context
 
     return (
         <div className="flex flex-row w-screen h-screen relative">
             <LeftPanel />
             <PageContainer>
-                <ErrorMesssage>Error</ErrorMesssage>
-                <TableView setShowAddProductModal={setShowAddProductModal} />
-                {showAddProductModal &&
-                    <AddProductModal setShowAddProductModal={setShowAddProductModal} handleAddProduct={handleAddProduct} />
+                {errorMessage &&
+                    <ErrorMesssage>Error</ErrorMesssage>
                 }
+                <TableView />
             </PageContainer >
         </div>
     )

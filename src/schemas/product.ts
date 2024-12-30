@@ -22,5 +22,5 @@ export const productSchema = z.object({
     email: z.string()
         .email('Invalid email address'),
     phone: z.string()
-        .regex(/^\+380\d{9}$/, 'Invalid phone number'),
+        .regex(/^\+380\d{9}$/, 'Format +380XXXXXXXXX'),
 });

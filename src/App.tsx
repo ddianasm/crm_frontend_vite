@@ -4,13 +4,16 @@ import { serverRequests } from '@/API/server.requests';
 import '@/global.css'
 import { UserState } from "@/store/UserState";
 
-export const ErrorMessageContext = createContext<{ errorMessage: string; setErrorMessage: (message: string) => void } | null>(null);
+export const ErrorMessageContext = createContext<{
+    errorMessage: string | null;
+    setErrorMessage: (message: string | null) => void;
+} | null>(null);
 
 
 
 export const App = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [errorMessage, setErrorMessage] = useState<string>('Error Message Text');
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     useEffect(() => {
         serverRequests.checkAuth()

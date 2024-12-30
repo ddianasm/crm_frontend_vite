@@ -25,11 +25,9 @@ type TCheckBoxProps = {
 type TRowCheckBox = {
     rowId: number
 }
-type TableViewProps = {
-    setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
-export const TableView: React.FC<TableViewProps> = observer(({ setShowAddProductModal }) => {
+export const TableView = observer(() => {
+    const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false)
 
     const columns = TableState.getColumns();
 
@@ -65,6 +63,9 @@ export const TableView: React.FC<TableViewProps> = observer(({ setShowAddProduct
                     </Row>
                 ))}
             </TableContainer>
+            {showAddProductModal &&
+                <AddProductModal setShowAddProductModal={setShowAddProductModal} />
+            }
         </div>
     );
 });

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { IoCloseOutline } from "react-icons/io5";
 import { StatusButton } from "@/components/buttons/status_button/StatusButton";
 import { ModalActionButton } from "@/components/buttons/modal_action_button/ModalActionButton";
@@ -7,6 +7,7 @@ import { Formik, FormikProps } from 'formik';
 import { FormErrorMessage } from '@/components/formErrorMessage/FormErrorMessage';
 import { productSchema } from "@/schemas/product";
 import { validateForm } from "@/utils/formValidation";
+import { ErrorMessageContext } from "@/App";
 
 export enum EProductStatus {
     NEW = 'new',
@@ -15,7 +16,6 @@ export enum EProductStatus {
 }
 type TAddProductModalPropsType = {
     setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
-    handleAddProduct: (values: TProductData) => Promise<void>;
 }
 type TProductData = {
     name: string;
@@ -37,16 +37,29 @@ type CustomInputProps = {
 };
 
 const initialValues = {
-    name: "",
-    amount: "",
-    price: "",
-    customer: "",
-    email: "",
-    phone: "",
+    name: "dsds",
+    amount: "2",
+    price: "2",
+    customer: "2dsd",
+    email: "example@gmail.com",
+    phone: "+380666666666",
     status: EProductStatus.NEW
 };
 
-export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAddProductModal, handleAddProduct }) => {
+export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAddProductModal }) => {
+    const context = useContext(ErrorMessageContext)!;
+    const { setErrorMessage } = context
+
+    const handleAddProduct = (product: TProductData) => {
+        const transformedProduct = {
+            ...product,
+            amount: Number(product.amount),
+            price: Number(product.price),
+        };
+
+        addProduct(transformedProduct, setErrorMessage);
+        setShowAddProductModal(false);
+    };
 
     return (
         <div className="flex justify-center items-center w-screen h-screen fixed inset-0 bg-black bg-opacity-50">
