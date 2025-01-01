@@ -1,35 +1,41 @@
 import { serverRequests } from "@/API/server.requests";
 import { UserState } from "@/store/UserState";
-import { errorMessages } from "@/constants/errorMessages";
+import { authFormErrorMessages } from "@/constants/authFormErrorMessages";
 
-export type authData = { username: string; password: string; }
+type authData = { username: string; password: string; }
 
-export const signIn = (data: authData, setErrorMessage: (message: string) => void) => {
+export const signIn = (
+    data: authData,
+    setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>
+) => {
     serverRequests.sendSignInData(data)
         .then(response => {
             if (response.status === 200) {
                 UserState.setUser(response.data.username)
-            } else {
-                setErrorMessage(errorMessages.signin.USER_NOT_FOUND);
+            }
+            if (response.status === 401) {
+                setErrorMessage(authFormErrorMessages.signIn.INVALID_CREDENTIALS)
             }
         })
         .catch(error => {
-            console.error(errorMessages.signin.USER_NOT_FOUND, error);
-            setErrorMessage(errorMessages.signin.USER_NOT_FOUND);
+            console.error('Error during sign-in:', error);
         })
 }
 
-export const signUp = (data: authData, setErrorMessage: (message: string) => void) => {
+export const signUp = (
+    data: authData,
+    setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>
+) => {
     serverRequests.sendSignUpData(data)
         .then(response => {
             if (response.status === 200) {
                 UserState.setUser(response.data.username)
-            } else {
-                setErrorMessage(errorMessages.signin.USER_NOT_FOUND);
+            }
+            if (response.status === 401) {
+                setErrorMessage(authFormErrorMessages.signUp.USERNAME_UNAVAILABLE)
             }
         })
         .catch(error => {
-            console.error(errorMessages.signin.USER_NOT_FOUND, error);
-            setErrorMessage(errorMessages.signin.USER_NOT_FOUND);
+            console.error('Error during sign-up:', error);
         })
 }

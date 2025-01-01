@@ -1,10 +1,8 @@
-import { ErrorMessageContext } from "@/App";
-import React, { useContext } from "react";
+import { ErrorMessageContext } from "@/pages/MainPage";
+import { useContext } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
-type TDivProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-
-export const ErrorMesssage: React.FC<TDivProps> = () => {
+export const ErrorMesssage = () => {
     const context = useContext(ErrorMessageContext)!;
     const { errorMessage, setErrorMessage } = context
     return (

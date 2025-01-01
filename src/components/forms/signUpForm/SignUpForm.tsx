@@ -7,17 +7,20 @@ import { FormErrorMessage } from '@/components/formErrorMessage/FormErrorMessage
 import { validateForm } from '@/utils/formValidation';
 import { authSchema } from '@/schemas/auth';
 import { signUp } from '@/service/authService';
-import { useContext } from 'react';
-import { ErrorMessageContext } from '@/App';
+import { useState } from 'react';
 
 export type authData = { username: string; password: string; }
 
 
 export const SignUpForm = () => {
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
     const navigate = useNavigate();
 
-    const context = useContext(ErrorMessageContext)!;
-    const { setErrorMessage } = context
+    const handleSignIn = (values: authData) => {
+        setErrorMessage(null)
+        signUp(values, setErrorMessage)
+    }
 
     const goToSignInPage = () => {
         navigate('/sign-in');
@@ -28,10 +31,13 @@ export const SignUpForm = () => {
             <Logo />
             <div className='flex flex-col items-center justify-center w-full gap-lg_gap rounded-sm_radius p-xl_p shadow-2xl'>
                 <div className='text-[18px]'>Registration</div>
+                {errorMessage ? (
+                    <FormErrorMessage>{errorMessage}</FormErrorMessage>
+                ) : null}
                 <Formik
                     initialValues={{ username: "", password: "" }}
                     validate={(values) => validateForm(authSchema, values)}
-                    onSubmit={(values) => signUp(values, setErrorMessage)}
+                    onSubmit={(values) => handleSignIn(values)}
                 >
                     {formik => (
                         <form

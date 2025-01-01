@@ -1,11 +1,11 @@
 import cn from "classnames"
 
-type TProductActionButton = {
-    className: string;
-    onClick: () => void;
-    icon: JSX.Element;
-    children: React.ReactNode;
-}
+type TProductActionButton = React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+> & {
+    icon: React.ReactNode;
+};
 
 export const ProductActionButton: React.FC<TProductActionButton> = ({ className, onClick, icon, children, ...props }) => {
     return (

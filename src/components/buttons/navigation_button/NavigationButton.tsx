@@ -1,7 +1,4 @@
-type TNavigationButton = {
-    onClick: () => void;
-    children: JSX.Element;
-}
+type TNavigationButton = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 export const NavigationButton: React.FC<TNavigationButton> = ({ onClick, children, ...props }) => {
     return (

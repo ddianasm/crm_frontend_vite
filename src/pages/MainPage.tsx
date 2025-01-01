@@ -2,12 +2,13 @@ import { LeftPanel } from "@/components/leftPanel/LeftPanel"
 import { TableView } from "@/components/tableView/TableView"
 import { observer } from "mobx-react-lite"
 import cn from "classnames"
-import { ErrorMesssage } from "@/components/errorMessage/ErrorMessage"
-import { AddProductModal } from "@/components/modals/addProductModal/AddProductModal"
-import { TableState } from "@/store/TableState"
-import React, { useContext, useState } from "react"
-import { addProduct } from "@/service/productService"
-import { ErrorMessageContext } from "@/App"
+import { ErrorMesssage } from "@/components/productErrorMessage/ProductErrorMessage"
+import React, { createContext, useState } from "react"
+
+export const ErrorMessageContext = createContext<{
+    errorMessage: string | null;
+    setErrorMessage: (message: string | null) => void;
+} | null>(null);
 
 export enum EProductStatus {
     NEW = 'new',
@@ -26,25 +27,27 @@ type TProductData = {
 };
 
 export const MainPage = observer(() => {
-    const context = useContext(ErrorMessageContext)!;
-    const { errorMessage } = context
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     return (
-        <div className="flex flex-row w-screen h-screen relative">
-            <LeftPanel />
-            <PageContainer>
-                {errorMessage &&
-                    <ErrorMesssage>Error</ErrorMesssage>
-                }
-                <TableView />
-            </PageContainer >
-        </div>
+        <ErrorMessageContext.Provider value={{ errorMessage, setErrorMessage }}>
+            <div className="flex flex-row w-screen h-screen relative">
+                <LeftPanel />
+                <PageContainer>
+                    {errorMessage &&
+                        <ErrorMesssage></ErrorMesssage>
+                    }
+                    <TableView />
+                </PageContainer >
+            </div>
+        </ErrorMessageContext.Provider>
     )
 })
 
 type divPropsType = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const PageContainer: React.FC<divPropsType> = ({ children, className, ...props }) => {
+
     return (
         <div
             {...props}

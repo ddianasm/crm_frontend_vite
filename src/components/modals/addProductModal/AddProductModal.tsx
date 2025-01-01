@@ -7,7 +7,7 @@ import { Formik, FormikProps } from 'formik';
 import { FormErrorMessage } from '@/components/formErrorMessage/FormErrorMessage';
 import { productSchema } from "@/schemas/product";
 import { validateForm } from "@/utils/formValidation";
-import { ErrorMessageContext } from "@/App";
+import { ErrorMessageContext } from "@/pages/MainPage";
 
 export enum EProductStatus {
     NEW = 'new',

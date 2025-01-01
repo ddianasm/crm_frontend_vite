@@ -1,7 +1,7 @@
 import { serverRequests } from "@/API/server.requests";
 import { TableState } from "@/store/TableState";
 import { EProductStatus } from "../components/modals/addProductModal/AddProductModal";
-import { errorMessages } from "@/constants/errorMessages";
+import { productErrorMessages } from "@/constants/productErrorMessages";
 
 type TSendProductData = {
     name: string;
@@ -21,7 +21,7 @@ export const getProducts = () => {
             }
         })
         .catch(error => {
-            console.error(errorMessages.products.GET_PRODUCTS_FAILED, error);
+            console.error(productErrorMessages.GET_PRODUCTS_FAILED, error);
         });
 };
 
@@ -31,12 +31,12 @@ export const addProduct = (data: TSendProductData, setErrorMessage: (message: st
             if (response.status === 200) {
                 getProducts();
             } else {
-                setErrorMessage(errorMessages.products.ADD_PRODUCT_FAILED);
+                setErrorMessage(productErrorMessages.ADD_PRODUCT_FAILED);
             }
         })
         .catch(error => {
-            console.error(errorMessages.products.ADD_PRODUCT_FAILED, error);
-            setErrorMessage(errorMessages.products.ADD_PRODUCT_FAILED);
+            console.error(productErrorMessages.ADD_PRODUCT_FAILED, error);
+            setErrorMessage(productErrorMessages.ADD_PRODUCT_FAILED);
         });
 };
 
@@ -48,6 +48,6 @@ export const deleteProducts = (data: number[]) => {
             }
         })
         .catch(error => {
-            console.error(errorMessages.products.DELETE_PRODUCT_FAILED, error);
+            console.error(productErrorMessages.DELETE_PRODUCT_FAILED, error);
         });
 };

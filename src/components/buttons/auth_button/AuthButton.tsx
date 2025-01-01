@@ -2,10 +2,10 @@
 import React from 'react';
 import cn from "classnames"
 
-type TPropsAuthButton = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+type TAuthButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 
-export const AuthButton = ({ className, children, onClick, ...props }: TPropsAuthButton) => {
+export const AuthButton = ({ className, children, onClick, ...props }: TAuthButtonProps) => {
     return (
         <button
             {...props}
