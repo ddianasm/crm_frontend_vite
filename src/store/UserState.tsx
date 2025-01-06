@@ -2,7 +2,7 @@ import { serverRequests } from "@/API/server.requests";
 import { makeAutoObservable } from "mobx"
 
 class UserStore {
-    user: string | null = null;
+    userId: string | null = null;
     isAuthenticated: boolean = false;
 
     constructor() {
@@ -22,9 +22,11 @@ class UserStore {
     //         });
     // }
 
-    setUser(user: string | null) {
-        this.user = user;
-        this.isAuthenticated = !!user; // Встановлюємо true/false залежно від значення user
+    setUser(userId: string | null) {
+        this.userId = userId;
+        this.isAuthenticated = !!userId;
+        console.log(this.userId);
+        console.log(this.isAuthenticated);
     }
 
     logout() {

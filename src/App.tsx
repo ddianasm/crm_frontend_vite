@@ -13,7 +13,8 @@ export const App = () => {
         serverRequests.checkAuth()
             .then(response => {
                 if (response.status === 200) {
-                    UserState.setUser(response.data.username)
+                    console.log('CheckAuth працює');
+                    UserState.setUser(response.data.userId)
                 }
             })
             .catch(error => {
