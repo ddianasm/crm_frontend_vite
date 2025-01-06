@@ -1,5 +1,4 @@
 export const Logo = ({ ...props }) => {
-
     return (
         <div
             {...props}

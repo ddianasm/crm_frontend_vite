@@ -2,13 +2,13 @@ import { LeftPanel } from "@/components/leftPanel/LeftPanel"
 import { TableView } from "@/components/tableView/TableView"
 import { observer } from "mobx-react-lite"
 import cn from "classnames"
-import { ErrorMesssage } from "@/components/productErrorMessage/ProductErrorMessage"
-import React, { createContext, useState } from "react"
+import { ProductErrorMesssage } from "@/components/productErrorMessage/ProductErrorMessage"
+import React, { useState } from "react"
 
-export const ErrorMessageContext = createContext<{
-    errorMessage: string | null;
-    setErrorMessage: (message: string | null) => void;
-} | null>(null);
+type TPageContainer = {
+    className?: string;
+    children: React.ReactNode;
+};
 
 export enum EProductStatus {
     NEW = 'new',
@@ -16,37 +16,23 @@ export enum EProductStatus {
     COMPLETED = 'completed'
 }
 
-type TProductData = {
-    name: string;
-    amount: string;
-    price: string;
-    customer: string;
-    email: string;
-    phone: string;
-    status: EProductStatus;
-};
-
 export const MainPage = observer(() => {
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [productErrorMessage, setProductErrorMessage] = useState<string | null>(null);
 
     return (
-        <ErrorMessageContext.Provider value={{ errorMessage, setErrorMessage }}>
-            <div className="flex flex-row w-screen h-screen relative">
-                <LeftPanel />
-                <PageContainer>
-                    {errorMessage &&
-                        <ErrorMesssage></ErrorMesssage>
-                    }
-                    <TableView />
-                </PageContainer >
-            </div>
-        </ErrorMessageContext.Provider>
+        <div className="flex flex-row w-screen h-screen relative">
+            <LeftPanel />
+            <PageContainer>
+                {productErrorMessage &&
+                    <ProductErrorMesssage productErrorMessage={productErrorMessage} setProductErrorMessage={setProductErrorMessage}></ProductErrorMesssage>
+                }
+                <TableView setProductErrorMessage={setProductErrorMessage} />
+            </PageContainer >
+        </div>
     )
 })
 
-type divPropsType = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-
-const PageContainer: React.FC<divPropsType> = ({ children, className, ...props }) => {
+const PageContainer: React.FC<TPageContainer> = ({ children, className, ...props }) => {
 
     return (
         <div

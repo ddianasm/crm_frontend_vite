@@ -16,6 +16,13 @@ body {
   --gray: #9e9e9e;
   --light_gray_blue: #f1f4fa;
   --error: #ef4444;
+  /* statuses */
+  --status_new_bg: #EAF8F0;
+  --status_in_process_bg: #FDFAEB;
+  --status_completed_bg: #F5F1FA;
+  --status_new_txt: #70C68E;
+  --status_in_process_txt: #EAD25D;
+  --status_completed_txt: #AC89DA;
 
   /* Font Size */
   --sm_text: 14px;

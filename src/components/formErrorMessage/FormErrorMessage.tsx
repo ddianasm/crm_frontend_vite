@@ -1,8 +1,8 @@
-type FormErrorMessageType = {
+type TFormErrorMessageType = {
     children: React.ReactNode;
 }
 
-export const FormErrorMessage: React.FC<FormErrorMessageType> = ({ children, ...props }) => {
+export const FormErrorMessage: React.FC<TFormErrorMessageType> = ({ children, ...props }) => {
     return (
         <div
             {...props}

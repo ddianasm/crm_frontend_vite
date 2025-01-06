@@ -1,15 +1,18 @@
 import cn from "classnames"
-import { EProductStatus } from "@/components/modals/addProductModal/AddProductModal"
+import { EProductStatus } from "@/enums"
+
 type TStatusButton = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 export const StatusButton: React.FC<TStatusButton> = ({ className, onClick, children, ...props }) => {
     const getStatusClasses = () => {
         if (children === EProductStatus.NEW) {
-            return 'bg-[#EAF8F0] text-[#70C68E]'
-        } else if (children == EProductStatus.IN_PROCESS) {
-            return 'bg-[#FDFAEB] text-[#EAD25D]'
-        } else {
-            return 'bg-[#F5F1FA] text-[#AC89DA]'
+            return 'bg-status_new_bg text-red text-status_new_txt'
+        }
+        if (children === EProductStatus.IN_PROCESS) {
+            return 'bg-status_in_process_bg text-status_in_process_txt'
+        }
+        if (children === EProductStatus.COMPLETED) {
+            return 'bg-status_completed_bg text-status_completed_txt'
         }
     }
 

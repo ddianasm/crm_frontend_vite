@@ -1,11 +1,11 @@
 'use client'
-import React from 'react';
 import cn from "classnames"
 
 type TAuthButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 
-export const AuthButton = ({ className, children, onClick, ...props }: TAuthButtonProps) => {
+
+export const AuthButton: React.FC<TAuthButtonProps> = ({ className, children, onClick, ...props }) => {
     return (
         <button
             {...props}

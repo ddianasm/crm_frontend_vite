@@ -1,8 +1,8 @@
 import cn from "classnames"
 
-type TModalActionButton = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+type TModalActionButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
-export const ModalActionButton: React.FC<TModalActionButton> = ({ className, onClick, children, ...props }) => {
+export const ModalActionButton: React.FC<TModalActionButtonProps> = ({ className, onClick, children, ...props }) => {
     return (
         <button
             {...props}

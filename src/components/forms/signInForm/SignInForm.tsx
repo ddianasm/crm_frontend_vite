@@ -7,16 +7,15 @@ import { FormErrorMessage } from '@/components/formErrorMessage/FormErrorMessage
 import { authSchema } from '@/schemas/auth';
 import { validateForm } from '@/utils/formValidation';
 import { signIn } from '@/service/authService';
-import { useContext, useState } from 'react';
-
-type authData = { username: string; password: string; }
+import { useState } from 'react';
+import { TAuthData } from '@/types';
 
 export const SignInForm = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const navigate = useNavigate();
 
-    const handleSignIn = (values: authData) => {
+    const handleSignIn = (values: TAuthData) => {
         setErrorMessage(null)
         signIn(values, setErrorMessage)
     }

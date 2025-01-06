@@ -13,6 +13,12 @@ module.exports = {
         primary: "var(--primary)",
         primary2: "var(--primary2)",
         error: "var(--error)",
+        status_new_bg: "var(--status_new_bg)",
+        status_in_process_bg: "var(--status_in_process_bg)",
+        status_completed_bg: "var(--status_completed_bg)",
+        status_new_txt: "var(--status_new_txt)",
+        status_in_process_txt: "var(--status_in_process_txt)",
+        status_completed_txt: "var(--status_completed_txt)",
       },
       fontSize: {
         sm_text: "var(--sm_text)",

@@ -8,8 +8,7 @@ import { validateForm } from '@/utils/formValidation';
 import { authSchema } from '@/schemas/auth';
 import { signUp } from '@/service/authService';
 import { useState } from 'react';
-
-export type authData = { username: string; password: string; }
+import { TAuthData } from '@/types';
 
 
 export const SignUpForm = () => {
@@ -17,7 +16,7 @@ export const SignUpForm = () => {
 
     const navigate = useNavigate();
 
-    const handleSignIn = (values: authData) => {
+    const handleSignIn = (values: TAuthData) => {
         setErrorMessage(null)
         signUp(values, setErrorMessage)
     }

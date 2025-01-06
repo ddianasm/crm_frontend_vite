@@ -13,6 +13,7 @@ export type TProduct = {
 }
 
 class TableStore {
+    columns: string[] = []
     rows: TProduct[] = []
     selectedRows: number[] = []
 
@@ -31,12 +32,24 @@ class TableStore {
         )
     }
 
+    get hasSelectedRows(): boolean {
+        return this.selectedRows.length > 0;
+    }
+
     setRows(rows: TProduct[]) {
         this.rows = rows;
     }
 
+    setColumns(columns: string[]) {
+        this.columns = columns
+    }
+
     clearData() {
         this.rows = []
+        this.selectedRows = []
+    }
+
+    clearSelectedRows() {
         this.selectedRows = []
     }
 
@@ -55,11 +68,11 @@ class TableStore {
             this.selectedRows = this.selectedRows.filter(selectId => selectId !== id)
     }
 
-    getColumns() {
-        return this.rows.length > 0
-            ? Object.keys(this.rows[0]).filter(key => key !== 'id')
-            : [];
-    }
+    // getColumns() {
+    //     return this.rows.length > 0
+    //         ? Object.keys(this.rows[0]).filter(key => key !== 'id')
+    //         : [];
+    // }
 }
 
 export const TableState = new TableStore()

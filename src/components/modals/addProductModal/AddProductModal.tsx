@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useState } from "react"
 import { IoCloseOutline } from "react-icons/io5";
 import { StatusButton } from "@/components/buttons/status_button/StatusButton";
 import { ModalActionButton } from "@/components/buttons/modal_action_button/ModalActionButton";
@@ -7,17 +7,14 @@ import { Formik, FormikProps } from 'formik';
 import { FormErrorMessage } from '@/components/formErrorMessage/FormErrorMessage';
 import { productSchema } from "@/schemas/product";
 import { validateForm } from "@/utils/formValidation";
-import { ErrorMessageContext } from "@/pages/MainPage";
+import { EProductStatus } from "@/enums";
 
-export enum EProductStatus {
-    NEW = 'new',
-    IN_PROCESS = 'in process',
-    COMPLETED = 'completed'
-}
-type TAddProductModalPropsType = {
+type TAddProductModalProps = {
     setShowAddProductModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setProductErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
 }
-type TProductData = {
+
+type TProductFormValues = {
     name: string;
     amount: string;
     price: string;
@@ -26,14 +23,16 @@ type TProductData = {
     phone: string;
     status: EProductStatus;
 };
+
 type TModalHeaderProps = {
     onClick: () => void;
 };
-type CustomInputProps = {
-    id: string;
+
+type TCustomInputProps = {
+    id: keyof TProductFormValues;
     type: string;
     placeholder: string;
-    formik: any;
+    formik: FormikProps<TProductFormValues>;
 };
 
 const initialValues = {
@@ -46,18 +45,16 @@ const initialValues = {
     status: EProductStatus.NEW
 };
 
-export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAddProductModal }) => {
-    const context = useContext(ErrorMessageContext)!;
-    const { setErrorMessage } = context
+export const AddProductModal: React.FC<TAddProductModalProps> = ({ setShowAddProductModal, setProductErrorMessage }) => {
 
-    const handleAddProduct = (product: TProductData) => {
+    const handleAddProduct = (product: TProductFormValues) => {
         const transformedProduct = {
             ...product,
             amount: Number(product.amount),
             price: Number(product.price),
         };
 
-        addProduct(transformedProduct, setErrorMessage);
+        addProduct(transformedProduct, setProductErrorMessage);
         setShowAddProductModal(false);
     };
 
@@ -86,7 +83,6 @@ export const AddProductModal: React.FC<TAddProductModalPropsType> = ({ setShowAd
     )
 }
 
-// ModalHeader.tsx
 const ModalHeader: React.FC<TModalHeaderProps> = ({ onClick, ...props }) => (
     <div
         {...props}
@@ -97,8 +93,7 @@ const ModalHeader: React.FC<TModalHeaderProps> = ({ onClick, ...props }) => (
     </div>
 );
 
-// FormInputs.tsx
-export const FormInputs: React.FC<{ formik: FormikProps<TProductData> }> = ({ formik }) => (
+export const FormInputs: React.FC<{ formik: FormikProps<TProductFormValues> }> = ({ formik }) => (
     <div className="flex flex-row gap-md_gap w-full justify-between">
         <div className="flex flex-col gap-md_gap w-full">
             <CustomInput
@@ -143,8 +138,7 @@ export const FormInputs: React.FC<{ formik: FormikProps<TProductData> }> = ({ fo
     </div>
 );
 
-// ProductStatusSelector.tsx
-export const ProductStatusSelector: React.FC<{ formik: FormikProps<TProductData> }> = ({ formik }) => {
+export const ProductStatusSelector: React.FC<{ formik: FormikProps<TProductFormValues> }> = ({ formik }) => {
     const [status, setStatus] = useState<EProductStatus>(formik.values.status);
 
     const handleStatusChange = (newStatus: EProductStatus) => {
@@ -171,8 +165,7 @@ export const ProductStatusSelector: React.FC<{ formik: FormikProps<TProductData>
     );
 };
 
-// ModalFooter.tsx
-export const ModalFooter: React.FC<{ formik: FormikProps<TProductData> }> = ({ formik }) => (
+export const ModalFooter: React.FC<{ formik: FormikProps<TProductFormValues> }> = ({ formik }) => (
     <div className="flex flex-row justify-around w-full gap-md_gap">
         <ModalActionButton
             type="button"
@@ -190,8 +183,7 @@ export const ModalFooter: React.FC<{ formik: FormikProps<TProductData> }> = ({ f
     </div>
 );
 
-// CustomInput.tsx
-const CustomInput: React.FC<CustomInputProps> = ({ id, type, placeholder, formik }) => {
+const CustomInput: React.FC<TCustomInputProps> = ({ id, type, placeholder, formik }) => {
     return (
         <div>
             <input

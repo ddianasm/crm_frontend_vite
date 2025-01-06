@@ -1,19 +1,7 @@
-import { mainInstance } from "./instance";
+import { mainInstance } from "@/API/instance";
+import { TProduct } from "@/types";
+import { TAuthData } from "@/types";;
 
-type TAuthData = {
-  username: string;
-  password: string;
-};
-
-type TAddProduct = {
-  name: string,
-  amount: number,
-  price: number,
-  customer: string,
-  email: string,
-  phone: string,
-  status: string
-}
 export const serverRequests = {
   sendSignUpData: async (data: TAuthData) =>
     mainInstance.post("/auth/signup", data),
@@ -25,7 +13,7 @@ export const serverRequests = {
 
   logout: async () => await mainInstance.get("/auth/logout"),
 
-  addProduct: async (data: TAddProduct) =>
+  addProduct: async (data: TProduct) =>
     mainInstance.post('/products/add', data),
 
   deleteProducts: async (data: number[]) =>
@@ -33,5 +21,5 @@ export const serverRequests = {
 
   getProducts: async () => await mainInstance.get('/products/get'),
 
-  getProductColumns: async () => await mainInstance.get('/columns')
+  getProductsColumns: async () => await mainInstance.get('/products/columns')
 };

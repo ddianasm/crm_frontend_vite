@@ -4,7 +4,6 @@ import { NavigationButton } from '../buttons/navigation_button/NavigationButton'
 import { UserState } from '@/store/UserState';
 
 export const LeftPanel = () => {
-
     return (
         <div className='flex flex-col justify-between p-md_p bg-light shadow-lg w-[65px]'>
             <NavigationButton onClick={() => console.log('home')}>
