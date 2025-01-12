@@ -1,17 +1,17 @@
-import { mainInstance } from "@/API/instance";
-import { TProduct } from "@/types";
-import { TAuthData } from "@/types";;
+import { mainInstance } from '@/API/instance';
+import { TProduct } from '@/types';
+import { TAuthData } from '@/types';;
 
 export const serverRequests = {
   sendSignUpData: async (data: TAuthData) =>
-    mainInstance.post("/auth/signup", data),
+    mainInstance.post('/auth/signup', data),
 
   sendSignInData: async (data: TAuthData) =>
-    mainInstance.post("/auth/signin", data),
+    mainInstance.post('/auth/signin', data),
 
-  checkAuth: async () => await mainInstance.get("/auth"),
+  checkAuth: async () => await mainInstance.get('/auth'),
 
-  logout: async () => await mainInstance.get("/auth/logout"),
+  logout: async () => await mainInstance.get('/auth/logout'),
 
   addProduct: async (data: TProduct) =>
     mainInstance.post('/products/add', data),

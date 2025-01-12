@@ -1,9 +1,7 @@
-import { serverRequests } from "@/API/server.requests";
-import { TableState } from "@/store/TableState";
-import { EProductStatus } from "@/enums";
-import { productErrorMessages } from "@/constants/productErrorMessages";
-import { TProduct } from "@/types";
-import React from "react";
+import { serverRequests } from '@/API/server.requests';
+import { TableState } from '@/store/TableState';
+import { productErrorMessages } from '@/constants/productErrorMessages';
+import { TProduct } from '@/types';
 
 export const getProducts = () => {
     serverRequests.getProducts()
@@ -36,12 +34,10 @@ export const deleteProducts = (data: number[], setProductErrorMessage: (message:
     serverRequests.deleteProducts(data)
         .then(response => {
             if (response.status === 200) {
-                console.log('success delete 200');
                 TableState.clearSelectedRows()
                 getProducts();
             } else {
                 setProductErrorMessage(productErrorMessages.DELETE_PRODUCTS_FAILED);
-                console.log('error delete');
             }
         })
         .catch(error => {

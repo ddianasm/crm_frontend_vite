@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 services:
   crm_frontend_vite_client:
@@ -7,10 +7,10 @@ services:
     restart: no
     working_dir: /app
     ports:
-      - "${HOST_PORT}:${CONTAINER_PORT}"
-      - "5173:5173"
-    env_file: ".env"
+      - '${HOST_PORT}:${CONTAINER_PORT}'
+      - '5173:5173'
+    env_file: '.env'
     volumes:
       - ./:/app
       - /app/node_modules
-    command: ["sh", "-c", "npm i; npm run dev;"]
+    command: ['sh', '-c', 'npm i; npm run dev;']

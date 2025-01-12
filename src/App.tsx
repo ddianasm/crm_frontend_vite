@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Router } from "@/router/router"
+import { Router } from '@/router/router'
 import { serverRequests } from '@/API/server.requests';
 import '@/global.css'
-import { UserState } from "@/store/UserState";
-
-
+import { AuthState } from '@/store/AuthState';
 
 export const App = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -13,12 +11,11 @@ export const App = () => {
         serverRequests.checkAuth()
             .then(response => {
                 if (response.status === 200) {
-                    console.log('CheckAuth працює');
-                    UserState.setUser(response.data.userId)
+                    AuthState.setUser(response.data.userId)
                 }
             })
             .catch(error => {
-                console.error('Error checking authorisation:', error);
+                console.error('Error checking authorization:', error);
             })
             .finally(() => {
                 setIsLoading(false);

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-   font-family: "Nunito", sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 :root {
@@ -17,12 +17,12 @@ body {
   --light_gray_blue: #f1f4fa;
   --error: #ef4444;
   /* statuses */
-  --status_new_bg: #EAF8F0;
-  --status_in_process_bg: #FDFAEB;
-  --status_completed_bg: #F5F1FA;
-  --status_new_txt: #70C68E;
-  --status_in_process_txt: #EAD25D;
-  --status_completed_txt: #AC89DA;
+  --status_new_bg: #eaf8f0;
+  --status_in_process_bg: #fdfaeb;
+  --status_completed_bg: #f5f1fa;
+  --status_new_txt: #70c68e;
+  --status_in_process_txt: #ead25d;
+  --status_completed_txt: #ac89da;
 
   /* Font Size */
   --sm_text: 14px;
@@ -30,7 +30,7 @@ body {
   --lg_text: 18px;
   --xl_text: 24px;
   --xxl_text: 30px;
-  
+
   /* Padding */
   --xl_p: 24px;
   --lg_p: 12px;
@@ -51,9 +51,3 @@ body {
   /* Border Radius */
   --sm_radius: 4px;
 }
-
-/* sm
-md
-lg	
-xl	
-2xl */

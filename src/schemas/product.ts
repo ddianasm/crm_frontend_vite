@@ -5,13 +5,13 @@ export const productSchema = z.object({
         .min(2, 'At least 2 characters')
         .max(30, 'At most 30 characters'),
     amount: z.preprocess(
-        (val) => (val === " " || val === "" ? undefined : Number(val)),
+        (val) => (val === ' ' || val === '' ? undefined : Number(val)),
         z.number()
             .int('Must be an integer')
             .nonnegative('Must be a positive number')
     ),
     price: z.preprocess(
-        (val) => (val === " " || val === "" ? undefined : Number(val)),
+        (val) => (val === ' ' || val === '' ? undefined : Number(val)),
         z.number()
             .int('Must be an integer')
             .nonnegative('Must be a positive number')

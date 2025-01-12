@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react"
-import { TableState, TProduct } from "@/store/TableState";
-import cn from "classnames"
-import { observer } from "mobx-react-lite";
-import { IoCheckmarkSharp } from "react-icons/io5";
-import { IoAdd } from "react-icons/io5";
-import { AiOutlineDelete } from "react-icons/ai";
-import { AddProductModal } from "@/components/modals/addProductModal/AddProductModal"
-import { getProducts, getProductsColumns } from "@/service/productService";
-import { StatusButton } from "@/components//buttons/status_button/StatusButton";
-import { ProductActionButton } from "@/components/buttons/product_action_button/ProductActionButton";
-import { deleteProducts } from "@/service/productService";
-import { NoProductsMessage } from "../noProductsMessage/NoProductsMessage";
+import React, { useEffect, useState } from 'react'
+import { TableState, TProduct } from '@/store/TableState';
+import cn from 'classnames'
+import { observer } from 'mobx-react-lite';
+import { IoCheckmarkSharp } from 'react-icons/io5';
+import { IoAdd } from 'react-icons/io5';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { AddProductModal } from '@/components/modals/addProductModal/AddProductModal'
+import { getProducts, getProductsColumns } from '@/service/productService';
+import { StatusButton } from '@/components//buttons/status_button/StatusButton';
+import { ProductActionButton } from '@/components/buttons/product_action_button/ProductActionButton';
+import { deleteProducts } from '@/service/productService';
+import { NoProductsMessage } from '../noProductsMessage/NoProductsMessage';
 
 type TTableViewProps = {
     setProductErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
@@ -56,7 +56,6 @@ export const TableView: React.FC<TTableViewProps> = observer(({ setProductErrorM
     const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false)
 
     const columns = TableState.columns;
-    console.log(columns);
 
     useEffect(() => {
         getProducts();
@@ -64,7 +63,7 @@ export const TableView: React.FC<TTableViewProps> = observer(({ setProductErrorM
     }, []);
 
     return (
-        <div className="w-full flex flex-col items-center justify-center p-xl_p rounded-sm_radius shadow-2xl gap-xs_gap">
+        <div className='w-full flex flex-col items-center justify-center p-xl_p rounded-sm_radius shadow-2xl gap-xs_gap'>
             <TableUtilities setShowAddProductModal={setShowAddProductModal} setProductErrorMessage={setProductErrorMessage} />
             <TableContainer>
                 <HeaderRow>
@@ -77,13 +76,13 @@ export const TableView: React.FC<TTableViewProps> = observer(({ setProductErrorM
                     <Row key={row.id}>
                         <RowCheckBox rowId={row.id} />
                         {columns
-                            .filter((column) => column !== "status")
+                            .filter((column) => column !== 'status')
                             .map((column) => (
-                                <Column key={column} className="text-dark">
+                                <Column key={column} className='text-dark'>
                                     {(row[column as keyof TProduct])}
                                 </Column>
                             ))}
-                        <Column key={"status"}>
+                        <Column key={'status'}>
                             <StatusButton>
                                 {row.status}
                             </StatusButton>
@@ -105,7 +104,7 @@ const TableContainer: React.FC<TTableContainerProps> = ({ children, className, .
     return (
         <div
             {...props}
-            className={cn("table border-collapse w-full", className)}
+            className={cn('table border-collapse w-full', className)}
         >
             {children}
         </div>
@@ -123,7 +122,7 @@ const TableUtilities: React.FC<TTableUtilitiesProps> = observer(({ setShowAddPro
             <div className='text-xl_text text-dark'>Products <span className='text-md_text text-gray'>({TableState.rows.length})</span></div>
             <div className='flex flex-row gap-lg_gap'>
                 <ProductActionButton
-                    className="bg-primary"
+                    className='bg-primary'
                     onClick={() => setShowAddProductModal(true)}
                     icon={<IoAdd className='text-light w-[20px] h-[20px]' />}
                 >
@@ -131,7 +130,7 @@ const TableUtilities: React.FC<TTableUtilitiesProps> = observer(({ setShowAddPro
                 </ProductActionButton>
                 {TableState.hasSelectedRows &&
                     <ProductActionButton
-                        className="bg-gray"
+                        className='bg-gray'
                         onClick={handleDeleteClick}
                         icon={<AiOutlineDelete className='text-light w-[20px] h-[20px]' />}
                     >
@@ -170,12 +169,12 @@ const CheckBox: React.FC<TCheckBoxProps> = observer(({ className, rowId, conditi
             {...props}
             htmlFor={rowId?.toString()}
             className={cn(
-                "inline-flex justify-center items-center rounded-sm_radius w-[20px] h-[20px] cursor-pointer border border-gray",
+                'inline-flex justify-center items-center rounded-sm_radius w-[20px] h-[20px] cursor-pointer border border-gray',
                 className
             )}
         >
             <input
-                type="checkbox"
+                type='checkbox'
                 id={rowId?.toString()}
                 className='hidden'
                 onChange={handler}
@@ -193,7 +192,7 @@ const HeaderRow: React.FC<THeaderRowProps> = ({ children, className, ...props })
             {...props}
             className={
                 cn(
-                    "table-row text-gray text-md_text font-bold capitalize",
+                    'table-row text-gray text-md_text font-bold capitalize',
                     className
                 )}
         >
@@ -207,7 +206,7 @@ const Row: React.FC<TRowProps> = ({ children, className, ...props }) => {
         <div
             {...props}
             className={cn(
-                "table-row text-dark border-t border-light_gray",
+                'table-row text-dark border-t border-light_gray',
                 className
             )}
         >
@@ -221,7 +220,7 @@ const Column: React.FC<TColumnProps> = ({ children, className, ...props }) => {
         <div
             {...props}
             className={cn(
-                "table-cell px-xs_p py-xl_p text-center",
+                'table-cell px-xs_p py-xl_p text-center',
                 className
             )}
         >

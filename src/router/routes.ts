@@ -1,6 +1,6 @@
 export const routes = {
   main: {
-    route: "/",
+    route: '/',
   },
   signUp: {
     route: 'sign-up',

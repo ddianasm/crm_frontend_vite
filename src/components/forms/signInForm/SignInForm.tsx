@@ -33,7 +33,7 @@ export const SignInForm = () => {
                     <FormErrorMessage>{errorMessage}</FormErrorMessage>
                 ) : null}
                 <Formik
-                    initialValues={{ username: "", password: "" }}
+                    initialValues={{ username: '', password: '' }}
                     validate={(values) => validateForm(authSchema, values)}
                     onSubmit={(values) => handleSignIn(values)}
                 >
@@ -44,8 +44,8 @@ export const SignInForm = () => {
                         >
                             <div className='relative w-full flex flex-col gap-xs_gap'>
                                 <input
-                                    id="username"
-                                    type="text"
+                                    id='username'
+                                    type='text'
                                     placeholder='Username'
                                     className='h-[50px] w-full text-dark text-md_text bg-transparent border border-1 border-solid border-gray rounded-sm_radius outline-none p-md_p'
                                     {...formik.getFieldProps('username')}
@@ -56,8 +56,8 @@ export const SignInForm = () => {
                             </div>
                             <div className='relative w-full'>
                                 <input
-                                    id="password"
-                                    type="password"
+                                    id='password'
+                                    type='password'
                                     placeholder='Password'
                                     className='h-[50px] w-full text-dark text-md_text bg-transparent border border-1 border-solid border-gray rounded-sm_radius outline-none p-md_p'
                                     {...formik.getFieldProps('password')}
@@ -66,8 +66,8 @@ export const SignInForm = () => {
                                     <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
                                 ) : null}
                             </div>
-                            <AuthButton type="submit" className='w-full h-[50px] text-light hover:bg-primary2 bg-primary'>Sign In</AuthButton>
-                            <AuthButton type="button" className='w-full h-[50px] text-light hover:bg-gray bg-light_gray' onClick={goToSignUpPage}>Sign Up</AuthButton>
+                            <AuthButton type='submit' className='w-full h-[50px] text-light hover:bg-primary2 bg-primary'>Sign In</AuthButton>
+                            <AuthButton type='button' className='w-full h-[50px] text-light hover:bg-gray bg-light_gray' onClick={goToSignUpPage}>Sign Up</AuthButton>
                         </form>
                     )}
                 </Formik>

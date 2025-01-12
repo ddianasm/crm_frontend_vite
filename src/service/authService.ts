@@ -1,6 +1,6 @@
-import { serverRequests } from "@/API/server.requests";
-import { UserState } from "@/store/UserState";
-import { authFormErrorMessages } from "@/constants/authFormErrorMessages";
+import { serverRequests } from '@/API/server.requests';
+import { AuthState } from '@/store/AuthState';
+import { authFormErrorMessages } from '@/constants/authFormErrorMessages';
 
 type authData = { username: string; password: string; }
 
@@ -11,7 +11,7 @@ export const signIn = (
     serverRequests.sendSignInData(data)
         .then(response => {
             if (response.status === 200) {
-                UserState.setUser(response.data.userId)
+                AuthState.setUser(response.data.userId)
             }
             if (response.status === 401) {
                 setErrorMessage(authFormErrorMessages.signIn.INVALID_CREDENTIALS)
@@ -29,7 +29,7 @@ export const signUp = (
     serverRequests.sendSignUpData(data)
         .then(response => {
             if (response.status === 200) {
-                UserState.setUser(response.data.userId)
+                AuthState.setUser(response.data.userId)
             }
             if (response.status === 401) {
                 setErrorMessage(authFormErrorMessages.signUp.USERNAME_UNAVAILABLE)

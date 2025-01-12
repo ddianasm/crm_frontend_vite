@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable } from 'mobx'
 
 export type TProduct = {
     id: number,
@@ -54,25 +54,17 @@ class TableStore {
     }
 
     toggleAllSelectedRows() {
-        console.log('toggleAllSelectedRows');
         if (!this.allIsSelected) this.selectedRows = this.rowIdList
         else this.selectedRows = []
     }
 
     toggleSelectedRows(id: number) {
-        console.log(id);
         const idIsSelected = this.selectedRows.includes(id)
         if (!idIsSelected)
             this.selectedRows = [...this.selectedRows, id]
         else
             this.selectedRows = this.selectedRows.filter(selectId => selectId !== id)
     }
-
-    // getColumns() {
-    //     return this.rows.length > 0
-    //         ? Object.keys(this.rows[0]).filter(key => key !== 'id')
-    //         : [];
-    // }
 }
 
 export const TableState = new TableStore()

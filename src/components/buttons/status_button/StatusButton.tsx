@@ -1,5 +1,5 @@
-import cn from "classnames"
-import { EProductStatus } from "@/enums"
+import cn from 'classnames'
+import { EProductStatus } from '@/enums'
 
 type TStatusButton = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
@@ -19,7 +19,7 @@ export const StatusButton: React.FC<TStatusButton> = ({ className, onClick, chil
     return (
         <button
             {...props}
-            className={cn("rounded-sm_radius p-sm_p font-bold cursor-pointer capitalize", className, getStatusClasses())} onClick={onClick} >
+            className={cn('rounded-sm_radius p-sm_p font-bold cursor-pointer capitalize', className, getStatusClasses())} onClick={onClick} >
             {children}
         </button >
     )
