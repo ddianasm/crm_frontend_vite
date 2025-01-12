@@ -10,10 +10,15 @@ export default ({ mode }) => {
     define: {
       "process.env": process.env,
     },
+
     plugins: [react(), tsconfigPaths()],
     server: {
       host: true,
       port: Number.parseInt(process.env.PORT!) || 3000,
+    },
+
+    resolve: {
+      alias: [{ find: "@", replacement: "/src" }],
     },
   });
 };
